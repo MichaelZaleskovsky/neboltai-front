@@ -7,6 +7,7 @@ import {
   ArtworkDto,
   ArtworkSearchParams,
   CatalogItem,
+  MediaType,
   PagedResult,
 } from '../models/catalog-item';
 
@@ -74,9 +75,9 @@ export class ArtworksApi {
   }
 
   /** List all media types, for the filter dropdown. */
-  mediaTypes(): Observable<string[]> {
+  mediaTypes(): Observable<MediaType[]> {
     return this.http
-      .get<string[]>(`${this.baseUrl}/api/mediatypes`)
+      .get<MediaType[]>(`${this.baseUrl}/api/mediatypes`)
       .pipe(catchError(this.handleError('mediaTypes')));
   }
 

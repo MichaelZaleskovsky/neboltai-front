@@ -11,39 +11,14 @@
     <a routerLink="/catalog">← Back to catalog</a>
   </section>
 } @else if (current && (source || crop)) {
+  <div class="product-toolbar"><a class="back-button" routerLink="/catalog">Back to catalog</a></div>
   <section class="product">
     <div class="left">
       <div
-        #navigator
         class="overview"
         [style.aspect-ratio]="current.width + ' / ' + current.height"
-      ></div>
-
-      <dl class="metadata">
-        <h2>Metadata</h2>
-        <div><dt>Author:</dt><dd>{{ current.author }}</dd></div>
-        <div><dt>Media:</dt><dd>{{ current.media }}</dd></div>
-        <div><dt>Size:</dt><dd>{{ current.size }}</dd></div>
-        <div><dt>Year:</dt><dd>{{ current.year }}</dd></div>
-        <div><dt>Name:</dt><dd>{{ current.name }}</dd></div>
-      </dl>
-
-      <div class="description">
-        <h2>Description</h2>
-        <p>{{ current.description }}</p>
-      </div>
-    </div>
-
-    <div class="right">
-      <div class="main-viewer" [style.aspect-ratio]="current.width + ' / ' + current.height">
-        <app-osd-viewer
-          [tileSources]="source ?? undefined"
-          [cropSource]="crop"
-          [navigatorElement]="navigatorEl()?.nativeElement ?? null"
-          (zoomChange)="onZoomChange($event)"
-          (maxZoomChange)="onMaxZoomChange($event)"
-          (loadError)="onImageError($event)"
-        />
+      >
+        <div #navigator class="overview-navigator"></div>
       </div>
 
       <div class="viewer-controls">
@@ -58,13 +33,41 @@
           aria-label="Zoom level"
         />
         <button type="button" (click)="zoomIn()" aria-label="Zoom in">+</button>
-        <span class="spacer"></span>
-        <button type="button" class="fullscreen" (click)="fullScreen()">Full screen</button>
+        <button type="button" class="fullscreen" (click)="fullScreen()" aria-label="Full screen" title="Full screen">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8 3H3v5M16 3h5v5M21 16v5h-5M8 21H3v-5" />
+          </svg>
+        </button>
       </div>
+      <dl class="metadata">
+        <div><dt>Name:</dt><dd>{{ current.name }}</dd></div>
 
+        <div><dt>Author:</dt><dd>{{ current.author }}</dd></div>
+        <div><dt>Media type:</dt><dd>{{ current.mediaType }}</dd></div>
+        <div><dt>Media name:</dt><dd>{{ current.media }}</dd></div>
+        <div><dt>Size:</dt><dd>{{ current.size }}</dd></div>
+        <div><dt>Year:</dt><dd>{{ current.year }}</dd></div>
+
+      </dl>
+
+      @if (current.description.trim()) {
+        <p class="description">{{ current.description }}</p>
+      }
       @if (imageError()) {
         <p class="image-error">Could not load the image: {{ imageError() }}</p>
       }
+    </div>
+    <div class="right">
+      <div class="main-viewer" [style.aspect-ratio]="current.width + ' / ' + current.height">
+        <app-osd-viewer
+          [tileSources]="source ?? undefined"
+          [cropSource]="crop"
+          [navigatorElement]="navigatorEl()?.nativeElement ?? null"
+          (zoomChange)="onZoomChange($event)"
+          (maxZoomChange)="onMaxZoomChange($event)"
+          (loadError)="onImageError($event)"
+        />
+      </div>
     </div>
   </section>
 } @else {

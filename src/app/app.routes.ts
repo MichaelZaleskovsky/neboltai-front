@@ -4,6 +4,14 @@ import { adminGuard } from './guards/admin-guard';
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'about' },
   {
+    path: 'account',
+    loadComponent: () => import('./pages/account/account-page').then((m) => m.AccountPage),
+  },
+  {
+    path: 'account/load-image',
+    loadComponent: () => import('./pages/account/load-image-page').then((m) => m.LoadImagePage),
+  },
+  {
     path: 'about',
     loadComponent: () => import('./pages/about/about').then((m) => m.About),
   },

@@ -57,6 +57,12 @@ export interface Author {
   author: string;
 }
 
+/** A media type entry from GET /api/mediatypes. */
+export interface MediaType {
+  id: number;
+  type: string;
+}
+
 /** Filters accepted by the artworks search endpoint. */
 export interface ArtworkSearchParams {
   authorId?: number;

@@ -18,6 +18,9 @@ interface CatalogState {
   // Filters
   authorId: number | null;
   mediaType: string;
+  mediaName: string;
+  yearFrom: number | null;
+  yearTo: number | null;
   // Paging
   page: number;
   pageSize: number;
@@ -31,6 +34,9 @@ const initialState: CatalogState = {
   totalElements: 0,
   authorId: null,
   mediaType: '',
+  mediaName: '',
+  yearFrom: null,
+  yearTo: null,
   page: 0,
   pageSize: 3,
   loading: false,
@@ -46,6 +52,9 @@ export const CatalogStore = signalStore(
     searchParams: computed<ArtworkSearchParams>(() => ({
       authorId: store.authorId() ?? undefined,
       mediaType: store.mediaType() || undefined,
+      mediaName: store.mediaName().trim() || undefined,
+      yearFrom: store.yearFrom() ?? undefined,
+      yearTo: store.yearTo() ?? undefined,
       page: store.page(),
       size: store.pageSize(),
     })),
@@ -80,21 +89,10 @@ export const CatalogStore = signalStore(
     return {
       load,
 
-      setAuthor(authorId: number | null): void {
-        patchState(store, { authorId, page: 0 });
+      applyFilters(filters: Pick<CatalogState, 'authorId' | 'mediaType' | 'mediaName' | 'yearFrom' | 'yearTo'>): void {
+        patchState(store, { ...filters, page: 0 });
         load(store.searchParams());
       },
-
-      setMediaType(mediaType: string): void {
-        patchState(store, { mediaType, page: 0 });
-        load(store.searchParams());
-      },
-
-      clearFilters(): void {
-        patchState(store, { authorId: null, mediaType: '', page: 0 });
-        load(store.searchParams());
-      },
-
       setPage(page: number, pageSize: number): void {
         patchState(store, { page, pageSize });
         load(store.searchParams());

@@ -1,6 +1,6 @@
 <div class="top-bar">
   <a class="brand" routerLink="/about" aria-label="НЕ БОЛТАЙ — home">
-    <img class="brand-logo" src="logo.jpg" alt="НЕ БОЛТАЙ — a collection of 20th century propaganda" />
+    <img class="brand-logo" src="ne_boltai-1.png" alt="НЕ БОЛТАЙ — a collection of 20th century propaganda" />
   </a>
 
   <div class="top-actions">
@@ -13,18 +13,15 @@
       </select>
     </label>
 
-    @if (isAdmin()) {
-      <a class="action admin-link" routerLink="/admin">Admin panel</a>
-    }
-
-    @if (isLoggedIn()) {
-      <span class="action account">{{ user()?.name }}</span>
-      <button type="button" class="action link-button" (click)="logout()">Logout</button>
-    } @else {
-      <button type="button" class="action link-button" (click)="login()">Login</button>
-      <button type="button" class="action link-button" (click)="loginAsAdmin()">
-        Login as admin
-      </button>
-    }
+    <button type="button" class="login-button" (click)="toggleLogin()">
+      {{ isLoggedIn() ? 'Logout' : 'Login' }}
+    </button>
+    <a class="account-link" routerLink="/account" aria-label="Personal account" title="Personal account">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="8" r="4" />
+        <path d="M4 21v-2a8 8 0 0 1 16 0v2" />
+      </svg>
+    </a>
   </div>
 </div>
