@@ -1,0 +1,67 @@
+<section class="catalog">
+  <aside class="filter">
+    <h2>Filter</h2>
+
+    <label class="field">
+      <span>Author</span>
+      <select (change)="onAuthorChange($any($event.target).value)">
+        <option value="" [selected]="store.authorId() == null">All authors</option>
+        @for (a of authorsResource.value(); track a.id) {
+          <option [value]="a.id" [selected]="store.authorId() === a.id">{{ a.author }}</option>
+        }
+      </select>
+    </label>
+
+    <label class="field">
+      <span>Media type</span>
+      <select (change)="onMediaTypeChange($any($event.target).value)">
+        <option value="" [selected]="!store.mediaType()">All media types</option>
+        @for (mt of mediaTypesResource.value(); track mt) {
+          <option [value]="mt" [selected]="store.mediaType() === mt">{{ mt }}</option>
+        }
+      </select>
+    </label>
+
+    <button type="button" class="clear" (click)="clearFilters()">Clear filters</button>
+  </aside>
+
+  <div class="results">
+    @if (store.loading()) {
+      <p class="status">Loading…</p>
+    } @else if (store.error()) {
+      <p class="status error">{{ store.error() }}</p>
+    } @else {
+      @for (item of store.items(); track item.id) {
+        <article class="item">
+          <a class="thumb" [routerLink]="['/catalog', item.id]">
+            <img [src]="item.previewUrl" [alt]="item.name" loading="lazy" />
+          </a>
+          <dl class="metadata">
+            <div><dt>Author:</dt><dd>{{ item.author }}</dd></div>
+            <div><dt>Media:</dt><dd>{{ item.media }}</dd></div>
+            <div><dt>Size:</dt><dd>{{ item.size }}</dd></div>
+            <div><dt>Year:</dt><dd>{{ item.year }}</dd></div>
+            <div>
+              <dt>Name:</dt>
+              <dd><a [routerLink]="['/catalog', item.id]">{{ item.name }}</a></dd>
+            </div>
+          </dl>
+        </article>
+      } @empty {
+        <p class="status">No items match the current filters.</p>
+      }
+
+      @if (store.hasResults()) {
+        <mat-paginator
+          class="catalog-paginator"
+          [length]="store.totalElements()"
+          [pageSize]="store.pageSize()"
+          [pageIndex]="store.page()"
+          [pageSizeOptions]="[3, 5, 10]"
+          (page)="onPage($event)"
+          aria-label="Catalog pagination"
+        />
+      }
+    }
+  </div>
+</section>

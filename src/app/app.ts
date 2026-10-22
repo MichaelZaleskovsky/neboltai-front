@@ -1,12 +1,15 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Header } from './layout/header/header';
+import { Nav } from './layout/nav/nav';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [RouterOutlet, Header, Nav],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('neboltai');
+  protected readonly year = new Date().getFullYear();
 }

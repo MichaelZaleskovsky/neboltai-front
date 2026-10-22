@@ -1,0 +1,43 @@
+.admin {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+.note {
+  padding: 0.6rem 0.9rem;
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  border-radius: 4px;
+  color: #8a6d00;
+}
+
+.status {
+  color: #666;
+}
+
+.status.error {
+  color: #c0392b;
+}
+
+.items {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+
+  th,
+  td {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  th {
+    color: #666;
+    font-weight: 600;
+  }
+}

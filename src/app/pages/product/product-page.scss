@@ -1,0 +1,145 @@
+.product {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  align-items: start;
+}
+
+.viewer-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+
+  button {
+    height: 2rem;
+    min-width: 2rem;
+    padding: 0 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  button:hover {
+    background: #f0f0f0;
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .zoom-slider {
+    flex: 1 1 auto;
+    max-width: 260px;
+    cursor: pointer;
+  }
+
+  .fullscreen {
+    font-size: 0.9rem;
+    font: inherit;
+  }
+}
+
+.overview {
+  width: 100%;
+  /* height derives from the image aspect-ratio bound inline */
+  margin-bottom: 1.5rem;
+  border: 1px solid #ddd;
+  background: #1a1a1a;
+}
+
+.metadata {
+  margin: 0 0 1.5rem;
+
+  h2 {
+    font-size: 1rem;
+    margin: 0 0 0.5rem;
+  }
+
+  div {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.15rem 0;
+  }
+
+  dt {
+    width: 70px;
+    color: #666;
+    font-weight: 500;
+  }
+
+  dd {
+    margin: 0;
+  }
+}
+
+.description {
+  h2 {
+    font-size: 1rem;
+    margin: 0 0 0.5rem;
+  }
+
+  p {
+    margin: 0;
+    color: #333;
+    line-height: 1.5;
+  }
+}
+
+.right {
+  position: sticky;
+  top: 1rem;
+}
+
+.main-viewer {
+  /* The box matches the image shape exactly via the inline aspect-ratio,
+     so there are no letterbox bars. It fills the column width, and its
+     height follows from the ratio. */
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid #ddd;
+  background: #1a1a1a;
+}
+
+.not-found {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+
+  a {
+    color: #c0392b;
+  }
+}
+
+.image-error {
+  margin: 0.5rem 0 0;
+  color: #c0392b;
+  font-size: 0.9rem;
+}
+
+.error-detail {
+  color: #c0392b;
+  font-size: 0.85rem;
+  font-family: monospace;
+  word-break: break-all;
+}
+
+@media (max-width: 820px) {
+  .product {
+    grid-template-columns: 1fr;
+  }
+
+  .right {
+    position: static;
+  }
+
+  .main-viewer {
+    height: 400px;
+  }
+}

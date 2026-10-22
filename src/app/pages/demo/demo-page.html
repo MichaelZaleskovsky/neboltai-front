@@ -1,0 +1,29 @@
+<section class="demo">
+  <h1>Viewer comparison</h1>
+  <p class="hint">
+    Left is a heavy tiled DZI (true deep zoom). Right is a plain single image (like the backend
+    preview). Try panning and zooming each to compare behavior.
+  </p>
+
+  <div class="grid">
+    <figure>
+      <figcaption>Tiled DZI (deep zoom)</figcaption>
+      <div class="viewer">
+        <app-osd-viewer #dzi [tileSources]="dziSource" (loadError)="dziError.set($event)" />
+      </div>
+      @if (dziError()) {
+        <p class="err">{{ dziError() }}</p>
+      }
+    </figure>
+
+    <figure>
+      <figcaption>Single image (non-tiled)</figcaption>
+      <div class="viewer">
+        <app-osd-viewer #img [tileSources]="imageSource" (loadError)="imageError.set($event)" />
+      </div>
+      @if (imageError()) {
+        <p class="err">{{ imageError() }}</p>
+      }
+    </figure>
+  </div>
+</section>

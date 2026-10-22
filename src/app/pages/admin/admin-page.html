@@ -1,0 +1,43 @@
+<section class="admin">
+  <h1>Admin panel</h1>
+
+  <p class="note">
+    The backend API currently exposes read endpoints only. Add / edit actions will be wired up
+    once the create and update endpoints are available.
+  </p>
+
+  <h2>Artworks</h2>
+
+  @if (artworksResource.isLoading()) {
+    <p class="status">Loading…</p>
+  } @else if (artworksResource.error()) {
+    <p class="status error">Could not load artworks. Is the backend reachable?</p>
+  } @else {
+    <table class="items">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Author</th>
+          <th>Media</th>
+          <th>Year</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of artworksResource.value().items; track item.id) {
+          <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.author }}</td>
+            <td>{{ item.media }}</td>
+            <td>{{ item.year }}</td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5">No artworks found.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

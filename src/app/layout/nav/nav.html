@@ -1,0 +1,5 @@
+<nav class="main-nav">
+  @for (link of links; track link.path) {
+    <a [routerLink]="link.path" routerLinkActive="active">{{ link.label }}</a>
+  }
+</nav>

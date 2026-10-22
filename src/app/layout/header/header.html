@@ -1,0 +1,30 @@
+<div class="top-bar">
+  <a class="brand" routerLink="/about" aria-label="НЕ БОЛТАЙ — home">
+    <img class="brand-logo" src="logo.jpg" alt="НЕ БОЛТАЙ — a collection of 20th century propaganda" />
+  </a>
+
+  <div class="top-actions">
+    <label class="lang">
+      <span class="visually-hidden">Language</span>
+      <select [value]="lang()" (change)="setLang($any($event.target).value)">
+        @for (l of languages; track l) {
+          <option [value]="l">{{ l }}</option>
+        }
+      </select>
+    </label>
+
+    @if (isAdmin()) {
+      <a class="action admin-link" routerLink="/admin">Admin panel</a>
+    }
+
+    @if (isLoggedIn()) {
+      <span class="action account">{{ user()?.name }}</span>
+      <button type="button" class="action link-button" (click)="logout()">Logout</button>
+    } @else {
+      <button type="button" class="action link-button" (click)="login()">Login</button>
+      <button type="button" class="action link-button" (click)="loginAsAdmin()">
+        Login as admin
+      </button>
+    }
+  </div>
+</div>

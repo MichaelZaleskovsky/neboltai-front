@@ -36,15 +36,18 @@
             "outputMode": "server",
             "ssr": {
               "entry": "src/server.ts"
-            }
+            },
+            "allowedCommonJsDependencies": [
+              "openseadragon"
+            ]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "700kB",
+                  "maximumError": "1.5MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -64,6 +67,11 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "proxyConfig": "proxy.conf.json",
+            "host": "0.0.0.0",
+            "allowedHosts": ["localhost", "192.168.8.103"]
+          },
           "configurations": {
             "production": {
               "buildTarget": "neboltai:build:production"
@@ -99,5 +107,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
