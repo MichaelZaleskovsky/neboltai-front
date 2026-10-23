@@ -1,26 +1,28 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TranslocoPipe } from '@jsverse/transloco';
 import { Auth } from '../../services/auth';
-
-type Lang = 'EN' | 'RU';
+import { I18n, Lang } from '../../i18n/i18n';
 
 @Component({
   selector: 'app-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink],
+  imports: [RouterLink, TranslocoPipe],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
 export class Header {
   private readonly auth = inject(Auth);
+  private readonly i18n = inject(I18n);
 
   protected readonly isLoggedIn = this.auth.isLoggedIn;
 
-  protected readonly lang = signal<Lang>('EN');
-  protected readonly languages: readonly Lang[] = ['EN', 'RU'];
+  protected readonly lang = this.i18n.lang;
+  protected readonly languages = this.i18n.languages;
+  protected readonly languageNames = this.i18n.languageNames;
 
   protected setLang(value: string): void {
-    this.lang.set(value as Lang);
+    this.i18n.setLang(value as Lang);
   }
 
   protected toggleLogin(): void {

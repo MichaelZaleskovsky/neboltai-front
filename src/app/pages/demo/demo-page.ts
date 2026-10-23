@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal, viewChild } from '@angular/core';
 import type OpenSeadragon from 'openseadragon';
+import { TranslocoPipe } from '@jsverse/transloco';
 import { OsdViewer } from '../../osd-viewer/osd-viewer';
 
 /**
@@ -12,7 +13,7 @@ import { OsdViewer } from '../../osd-viewer/osd-viewer';
 @Component({
   selector: 'app-demo-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [OsdViewer],
+  imports: [OsdViewer, TranslocoPipe],
   templateUrl: './demo-page.html',
   styleUrl: './demo-page.scss',
 })

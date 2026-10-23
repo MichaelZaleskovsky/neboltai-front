@@ -3,15 +3,15 @@
 @let crop = cropSource();
 
 @if (itemResource.isLoading()) {
-  <section class="not-found"><p>Loading…</p></section>
+  <section class="not-found"><p>{{ 'COMMON.LOADING' | transloco }}</p></section>
 } @else if (itemResource.error()) {
   <section class="not-found">
-    <p>Could not load this item.</p>
+    <p>{{ 'PRODUCT.LOAD_ERROR' | transloco }}</p>
     <p class="error-detail">{{ errorMessage() }}</p>
-    <a routerLink="/catalog">← Back to catalog</a>
+    <a routerLink="/catalog">{{ 'PRODUCT.BACK_TO_CATALOG' | transloco }}</a>
   </section>
 } @else if (current && (source || crop)) {
-  <div class="product-toolbar"><a class="back-button" routerLink="/catalog">Back to catalog</a></div>
+  <div class="product-toolbar"><a class="back-button" routerLink="/catalog">{{ 'PRODUCT.BACK_TO_CATALOG' | transloco }}</a></div>
   <section class="product">
     <div class="left">
       <div
@@ -22,7 +22,7 @@
       </div>
 
       <div class="viewer-controls">
-        <button type="button" (click)="zoomOut()" aria-label="Zoom out">−</button>
+        <button type="button" (click)="zoomOut()" [attr.aria-label]="'PRODUCT.ZOOM_OUT' | transloco">−</button>
         <input
           type="range"
           class="zoom-slider"
@@ -30,23 +30,23 @@
           [max]="maxZoomPercent()"
           [value]="zoomPercent()"
           (input)="onSliderInput($any($event.target).value)"
-          aria-label="Zoom level"
+          [attr.aria-label]="'PRODUCT.ZOOM_LEVEL' | transloco"
         />
-        <button type="button" (click)="zoomIn()" aria-label="Zoom in">+</button>
-        <button type="button" class="fullscreen" (click)="fullScreen()" aria-label="Full screen" title="Full screen">
+        <button type="button" (click)="zoomIn()" [attr.aria-label]="'PRODUCT.ZOOM_IN' | transloco">+</button>
+        <button type="button" class="fullscreen" (click)="fullScreen()" [attr.aria-label]="'PRODUCT.FULL_SCREEN' | transloco" [attr.title]="'PRODUCT.FULL_SCREEN' | transloco">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M8 3H3v5M16 3h5v5M21 16v5h-5M8 21H3v-5" />
           </svg>
         </button>
       </div>
       <dl class="metadata">
-        <div><dt>Name:</dt><dd>{{ current.name }}</dd></div>
+        <div><dt>{{ 'PRODUCT.META.NAME' | transloco }}</dt><dd>{{ current.name }}</dd></div>
 
-        <div><dt>Author:</dt><dd>{{ current.author }}</dd></div>
-        <div><dt>Media type:</dt><dd>{{ current.mediaType }}</dd></div>
-        <div><dt>Media name:</dt><dd>{{ current.media }}</dd></div>
-        <div><dt>Size:</dt><dd>{{ current.size }}</dd></div>
-        <div><dt>Year:</dt><dd>{{ current.year }}</dd></div>
+        <div><dt>{{ 'PRODUCT.META.AUTHOR' | transloco }}</dt><dd>{{ current.author }}</dd></div>
+        <div><dt>{{ 'PRODUCT.META.MEDIA_TYPE' | transloco }}</dt><dd>{{ current.mediaType }}</dd></div>
+        <div><dt>{{ 'PRODUCT.META.MEDIA' | transloco }}</dt><dd>{{ current.media }}</dd></div>
+        <div><dt>{{ 'PRODUCT.META.SIZE' | transloco }}</dt><dd>{{ current.size }}</dd></div>
+        <div><dt>{{ 'PRODUCT.META.YEAR' | transloco }}</dt><dd>{{ current.year }}</dd></div>
 
       </dl>
 
@@ -54,7 +54,7 @@
         <p class="description">{{ current.description }}</p>
       }
       @if (imageError()) {
-        <p class="image-error">Could not load the image: {{ imageError() }}</p>
+        <p class="image-error">{{ 'PRODUCT.IMAGE_ERROR' | transloco }} {{ imageError() }}</p>
       }
     </div>
     <div class="right">
@@ -72,7 +72,7 @@
   </section>
 } @else {
   <section class="not-found">
-    <p>Item not found.</p>
-    <a routerLink="/catalog">← Back to catalog</a>
+    <p>{{ 'PRODUCT.NOT_FOUND' | transloco }}</p>
+    <a routerLink="/catalog">{{ 'PRODUCT.BACK_TO_CATALOG' | transloco }}</a>
   </section>
 }

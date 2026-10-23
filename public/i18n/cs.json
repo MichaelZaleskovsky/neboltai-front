@@ -1,0 +1,104 @@
+{
+  "COMMON": {
+    "LOADING": "Načítání…",
+    "BRAND_HOME_ARIA": "НЕ БОЛТАЙ — domů",
+    "BRAND_LOGO_ALT": "НЕ БОЛТАЙ — sbírka propagandy 20. století",
+    "COPYRIGHT": "НЕ БОЛТАЙ"
+  },
+  "HEADER": {
+    "LANGUAGE": "Jazyk",
+    "ACCOUNT": "Osobní účet",
+    "ADMIN_PANEL": "Administrační panel",
+    "LOGOUT": "Odhlásit se",
+    "LOGIN": "Přihlásit se",
+    "LOGIN_AS_ADMIN": "Přihlásit se jako administrátor"
+  },
+  "NAV": {
+    "CATALOG": "Katalog",
+    "AUTHORS": "Autoři",
+    "EXHIBITIONS": "Výstavy",
+    "PUBLICATIONS": "Publikace",
+    "ABOUT": "O projektu",
+    "CONTACTS": "Kontakty"
+  },
+  "CATALOG": {
+    "FILTER": "Filtr",
+    "AUTHOR": "Autor",
+    "ALL_AUTHORS": "Všichni autoři",
+    "MEDIA_TYPE": "Typ média",
+    "ALL_MEDIA_TYPES": "Všechny typy médií",
+    "MEDIA_NAME": "Název média",
+    "YEAR_FROM": "Rok od",
+    "YEAR_TO": "Rok do",
+    "APPLY": "Použít",
+    "CLEAR_FILTERS": "Vymazat filtry",
+    "RESULTS_COUNT": "Nalezeno položek: {{count}}",
+    "ITEMS_PER_PAGE": "Položek na stránku:",
+    "EMPTY": "Žádné položky neodpovídají aktuálním filtrům.",
+    "PAGINATION_ARIA": "Stránkování katalogu",
+    "PAGER": {
+      "FIRST": "První stránka",
+      "PREV": "Předchozí stránka",
+      "NEXT": "Další stránka",
+      "LAST": "Poslední stránka",
+      "PAGE": "Stránka",
+      "GO_TO": "Přejít na stránku:",
+      "GO": "Přejít"
+    },
+    "META": {
+      "AUTHOR": "Autor:",
+      "MEDIA_TYPE": "Typ média:",
+      "MEDIA": "Médium:",
+      "SIZE": "Rozměr:",
+      "YEAR": "Rok:",
+      "NAME": "Název:"
+    }
+  },
+  "PRODUCT": {
+    "LOAD_ERROR": "Tuto položku se nepodařilo načíst.",
+    "BACK_TO_CATALOG": "← Zpět do katalogu",
+    "METADATA": "Metadata",
+    "DESCRIPTION": "Popis",
+    "ZOOM_OUT": "Oddálit",
+    "ZOOM_IN": "Přiblížit",
+    "ZOOM_LEVEL": "Úroveň přiblížení",
+    "FULL_SCREEN": "Celá obrazovka",
+    "IMAGE_ERROR": "Obrázek se nepodařilo načíst:",
+    "NOT_FOUND": "Položka nenalezena.",
+    "META": {
+      "AUTHOR": "Autor:",
+      "MEDIA_TYPE": "Typ média:",
+      "MEDIA": "Médium:",
+      "SIZE": "Rozměr:",
+      "YEAR": "Rok:",
+      "NAME": "Název:"
+    }
+  },
+  "ADMIN": {
+    "TITLE": "Administrační panel",
+    "NOTE": "Backendové API aktuálně nabízí pouze čtecí endpointy. Akce pro přidání / úpravu budou zapojeny, jakmile budou k dispozici endpointy pro vytvoření a aktualizaci.",
+    "ARTWORKS": "Umělecká díla",
+    "LOAD_ERROR": "Umělecká díla se nepodařilo načíst. Je backend dostupný?",
+    "COLUMN": {
+      "ID": "Id",
+      "NAME": "Název",
+      "AUTHOR": "Autor",
+      "MEDIA": "Médium",
+      "YEAR": "Rok"
+    },
+    "EMPTY": "Nebyla nalezena žádná umělecká díla."
+  },
+  "DEMO": {
+    "TITLE": "Porovnání prohlížečů",
+    "HINT": "Vlevo je náročné dlaždicové DZI (skutečný hluboký zoom). Vpravo je prostý jednoduchý obrázek (jako náhled z backendu). Zkuste u obou posouvat a přibližovat a porovnejte chování.",
+    "TILED": "Dlaždicové DZI (hluboký zoom)",
+    "SINGLE": "Jednoduchý obrázek (bez dlaždic)"
+  },
+  "ABOUT": {
+    "TITLE": "O projektu",
+    "BODY": "НЕ БОЛТАЙ je archiv plakátů a uměleckých děl. Toto je stránka „O projektu“ — nahraďte tento text skutečným popisem projektu."
+  },
+  "PLACEHOLDER": {
+    "COMING_SOON": "Tato sekce bude brzy k dispozici."
+  }
+}

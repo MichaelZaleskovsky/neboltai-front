@@ -1,0 +1,104 @@
+{
+  "COMMON": {
+    "LOADING": "Loading…",
+    "BRAND_HOME_ARIA": "НЕ БОЛТАЙ — home",
+    "BRAND_LOGO_ALT": "НЕ БОЛТАЙ — a collection of 20th century propaganda",
+    "COPYRIGHT": "НЕ БОЛТАЙ"
+  },
+  "HEADER": {
+    "LANGUAGE": "Language",
+    "ACCOUNT": "Personal account",
+    "ADMIN_PANEL": "Admin panel",
+    "LOGOUT": "Logout",
+    "LOGIN": "Login",
+    "LOGIN_AS_ADMIN": "Login as admin"
+  },
+  "NAV": {
+    "CATALOG": "Catalog",
+    "AUTHORS": "Authors",
+    "EXHIBITIONS": "Exhibitions",
+    "PUBLICATIONS": "Publications",
+    "ABOUT": "About",
+    "CONTACTS": "Contacts"
+  },
+  "CATALOG": {
+    "FILTER": "Filter",
+    "AUTHOR": "Author",
+    "ALL_AUTHORS": "All authors",
+    "MEDIA_TYPE": "Media type",
+    "ALL_MEDIA_TYPES": "All media types",
+    "MEDIA_NAME": "Media name",
+    "YEAR_FROM": "Year from",
+    "YEAR_TO": "Year to",
+    "APPLY": "Apply",
+    "CLEAR_FILTERS": "Clear filters",
+    "RESULTS_COUNT": "Total {{count}} items were found",
+    "ITEMS_PER_PAGE": "Items per page:",
+    "EMPTY": "No items match the current filters.",
+    "PAGINATION_ARIA": "Catalog pagination",
+    "PAGER": {
+      "FIRST": "First page",
+      "PREV": "Previous page",
+      "NEXT": "Next page",
+      "LAST": "Last page",
+      "PAGE": "Page",
+      "GO_TO": "Go to page:",
+      "GO": "Go"
+    },
+    "META": {
+      "AUTHOR": "Author:",
+      "MEDIA_TYPE": "Media type:",
+      "MEDIA": "Media:",
+      "SIZE": "Size:",
+      "YEAR": "Year:",
+      "NAME": "Name:"
+    }
+  },
+  "PRODUCT": {
+    "LOAD_ERROR": "Could not load this item.",
+    "BACK_TO_CATALOG": "← Back to catalog",
+    "METADATA": "Metadata",
+    "DESCRIPTION": "Description",
+    "ZOOM_OUT": "Zoom out",
+    "ZOOM_IN": "Zoom in",
+    "ZOOM_LEVEL": "Zoom level",
+    "FULL_SCREEN": "Full screen",
+    "IMAGE_ERROR": "Could not load the image:",
+    "NOT_FOUND": "Item not found.",
+    "META": {
+      "AUTHOR": "Author:",
+      "MEDIA_TYPE": "Media type:",
+      "MEDIA": "Media:",
+      "SIZE": "Size:",
+      "YEAR": "Year:",
+      "NAME": "Name:"
+    }
+  },
+  "ADMIN": {
+    "TITLE": "Admin panel",
+    "NOTE": "The backend API currently exposes read endpoints only. Add / edit actions will be wired up once the create and update endpoints are available.",
+    "ARTWORKS": "Artworks",
+    "LOAD_ERROR": "Could not load artworks. Is the backend reachable?",
+    "COLUMN": {
+      "ID": "Id",
+      "NAME": "Name",
+      "AUTHOR": "Author",
+      "MEDIA": "Media",
+      "YEAR": "Year"
+    },
+    "EMPTY": "No artworks found."
+  },
+  "DEMO": {
+    "TITLE": "Viewer comparison",
+    "HINT": "Left is a heavy tiled DZI (true deep zoom). Right is a plain single image (like the backend preview). Try panning and zooming each to compare behavior.",
+    "TILED": "Tiled DZI (deep zoom)",
+    "SINGLE": "Single image (non-tiled)"
+  },
+  "ABOUT": {
+    "TITLE": "About",
+    "BODY": "НЕ БОЛТАЙ is an archive of posters and artworks. This is the About page — replace this copy with the real project description."
+  },
+  "PLACEHOLDER": {
+    "COMING_SOON": "This section is coming soon."
+  }
+}
