@@ -8,10 +8,4 @@
 export const environment = {
   production: true,
   apiBaseUrl: 'http://192.168.1.42:8080',
-  /**
-   * MOCK FALLBACK (temporary, 500 workaround) — OFF in production.
-   * Production must always use the real backend; the catchError recovery in
-   * ArtworksApi still applies, but dummy data is never served proactively.
-   */
-  useMock: false,
 };

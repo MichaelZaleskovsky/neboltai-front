@@ -16,9 +16,14 @@ export class Auth {
   readonly isLoggedIn = computed(() => this.userSignal() !== null);
   readonly isAdmin = computed(() => this.userSignal()?.isAdmin ?? false);
 
-  /** Mock login. In the real app this would call an auth API. */
-  login(asAdmin = false): void {
-    this.userSignal.set({ name: asAdmin ? 'Administrator' : 'Guest User', isAdmin: asAdmin });
+  /**
+   * Mock login. In the real app this would call an auth API and verify the
+   * password. For now any non-empty credentials succeed; `asAdmin` grants the
+   * admin role, and `name` (when given) is used as the display name.
+   */
+  login(asAdmin = false, name?: string): void {
+    const displayName = name?.trim() || (asAdmin ? 'Administrator' : 'Guest User');
+    this.userSignal.set({ name: displayName, isAdmin: asAdmin });
   }
 
   logout(): void {

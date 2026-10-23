@@ -82,5 +82,21 @@
   },
   "PLACEHOLDER": {
     "COMING_SOON": "Tato sekce bude brzy k dispozici."
+  },
+  "LOGIN": {
+    "TITLE": "Přihlášení",
+    "SUBTITLE": "Přístup k administračním nástrojům archivu.",
+    "EMAIL": "E-mail",
+    "PASSWORD": "Heslo",
+    "AS_ADMIN": "Přihlásit se jako administrátor",
+    "SUBMIT": "Přihlásit se",
+    "BACK": "← Zpět na úvod",
+    "MOCK_HINT": "Demo přihlášení: funguje libovolný platný e-mail a heslo o délce 4+ znaků.",
+    "ERROR": {
+      "EMAIL_REQUIRED": "E-mail je povinný.",
+      "EMAIL_INVALID": "Zadejte platnou e-mailovou adresu.",
+      "PASSWORD_REQUIRED": "Heslo je povinné.",
+      "PASSWORD_SHORT": "Heslo musí mít alespoň 4 znaky."
+    }
   }
 }

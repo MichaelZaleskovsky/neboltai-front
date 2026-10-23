@@ -1,0 +1,55 @@
+<section class="login">
+  <h1>{{ 'LOGIN.TITLE' | transloco }}</h1>
+  <p class="subtitle">{{ 'LOGIN.SUBTITLE' | transloco }}</p>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <label class="field">
+      <span>{{ 'LOGIN.EMAIL' | transloco }}</span>
+      <input
+        type="email"
+        formControlName="email"
+        autocomplete="username"
+        [attr.aria-invalid]="form.controls.email.invalid && form.controls.email.touched"
+      />
+      @if (form.controls.email.touched && form.controls.email.errors; as errors) {
+        <small class="error">
+          @if (errors['required']) {
+            {{ 'LOGIN.ERROR.EMAIL_REQUIRED' | transloco }}
+          } @else if (errors['email']) {
+            {{ 'LOGIN.ERROR.EMAIL_INVALID' | transloco }}
+          }
+        </small>
+      }
+    </label>
+
+    <label class="field">
+      <span>{{ 'LOGIN.PASSWORD' | transloco }}</span>
+      <input
+        type="password"
+        formControlName="password"
+        autocomplete="current-password"
+        [attr.aria-invalid]="form.controls.password.invalid && form.controls.password.touched"
+      />
+      @if (form.controls.password.touched && form.controls.password.errors; as errors) {
+        <small class="error">
+          @if (errors['required']) {
+            {{ 'LOGIN.ERROR.PASSWORD_REQUIRED' | transloco }}
+          } @else if (errors['minlength']) {
+            {{ 'LOGIN.ERROR.PASSWORD_SHORT' | transloco }}
+          }
+        </small>
+      }
+    </label>
+
+    <label class="checkbox">
+      <input type="checkbox" formControlName="asAdmin" />
+      <span>{{ 'LOGIN.AS_ADMIN' | transloco }}</span>
+    </label>
+
+    <button type="submit" class="submit">{{ 'LOGIN.SUBMIT' | transloco }}</button>
+
+    <p class="hint">{{ 'LOGIN.MOCK_HINT' | transloco }}</p>
+
+    <a class="back" routerLink="/about">{{ 'LOGIN.BACK' | transloco }}</a>
+  </form>
+</section>

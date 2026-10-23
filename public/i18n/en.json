@@ -82,5 +82,21 @@
   },
   "PLACEHOLDER": {
     "COMING_SOON": "This section is coming soon."
+  },
+  "LOGIN": {
+    "TITLE": "Sign in",
+    "SUBTITLE": "Access the archive admin tools.",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "AS_ADMIN": "Sign in as administrator",
+    "SUBMIT": "Sign in",
+    "BACK": "← Back to home",
+    "MOCK_HINT": "Demo login: any valid email and a password of 4+ characters works.",
+    "ERROR": {
+      "EMAIL_REQUIRED": "Email is required.",
+      "EMAIL_INVALID": "Enter a valid email address.",
+      "PASSWORD_REQUIRED": "Password is required.",
+      "PASSWORD_SHORT": "Password must be at least 4 characters."
+    }
   }
 }

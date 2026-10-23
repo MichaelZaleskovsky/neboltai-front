@@ -6,9 +6,9 @@
   <div class="top-actions">
     <label class="lang">
       <span class="visually-hidden">{{ 'HEADER.LANGUAGE' | transloco }}</span>
-      <select [value]="lang()" (change)="setLang($any($event.target).value)">
+      <select (change)="setLang($any($event.target).value)">
         @for (l of languages; track l) {
-          <option [value]="l">{{ languageNames[l] }}</option>
+          <option [value]="l" [selected]="l === lang()">{{ languageNames[l] }}</option>
         }
       </select>
     </label>
@@ -23,12 +23,9 @@
         {{ 'HEADER.LOGOUT' | transloco }}
       </button>
     } @else {
-      <button type="button" class="action link-button" (click)="login()">
+      <a class="action link-button" routerLink="/login">
         {{ 'HEADER.LOGIN' | transloco }}
-      </button>
-      <button type="button" class="action link-button" (click)="loginAsAdmin()">
-        {{ 'HEADER.LOGIN_AS_ADMIN' | transloco }}
-      </button>
+      </a>
     }
   </div>
 </div>

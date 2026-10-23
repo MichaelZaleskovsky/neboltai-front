@@ -1,0 +1,90 @@
+.login {
+  max-width: 420px;
+  margin: 3rem auto;
+  padding: 2rem 1.75rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+h1 {
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  margin-top: 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+
+  span {
+    font-size: 0.85rem;
+    color: #444;
+  }
+
+  input {
+    padding: 0.55rem 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.95rem;
+
+    &[aria-invalid='true'] {
+      border-color: #c0392b;
+    }
+  }
+}
+
+.error {
+  color: #c0392b;
+  font-size: 0.8rem;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.submit {
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: #c0392b;
+  color: #fff;
+  font-size: 0.95rem;
+  cursor: pointer;
+
+  &:hover {
+    background: #a93226;
+  }
+}
+
+.hint {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.back {
+  color: #666;
+  font-size: 0.85rem;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

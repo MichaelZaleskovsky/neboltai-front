@@ -27,15 +27,6 @@ export class Header {
     this.i18n.setLang(value as Lang);
   }
 
-  // Mock auth actions until a real backend is wired up.
-  protected login(): void {
-    this.auth.login(false);
-  }
-
-  protected loginAsAdmin(): void {
-    this.auth.login(true);
-  }
-
   protected logout(): void {
     this.auth.logout();
   }

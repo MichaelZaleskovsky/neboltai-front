@@ -1,8 +1,7 @@
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, map, catchError, throwError, of } from 'rxjs';
+import { Observable, map, catchError, throwError } from 'rxjs';
 import { API_BASE_URL } from './api-config';
-import { environment } from '../../environments/environment';
 import {
   Author,
   ArtworkDto,
@@ -10,11 +9,6 @@ import {
   CatalogItem,
   PagedResult,
 } from '../models/catalog-item';
-// --- MOCK FALLBACK (temporary): dummy data used when the backend returns 500 ---
-// Added so the UI keeps working while the backend /api endpoints are failing.
-// Remove this import and the `environment.useMock` branches below once the
-// backend is reliable. See src/app/services/mock-data.ts.
-import { MOCK_AUTHORS, MOCK_MEDIA_TYPES, mockPagedItems } from './mock-data';
 
 @Injectable({ providedIn: 'root' })
 export class ArtworksApi {
@@ -23,25 +17,14 @@ export class ArtworksApi {
 
   /** Search artworks with optional filters and paging. */
   search(params: ArtworkSearchParams = {}): Observable<PagedResult<CatalogItem>> {
-    const page = params.page ?? 0;
-    const size = params.size ?? 20;
-
-    // MOCK FALLBACK (temporary, 500 workaround):
-    // When environment.useMock is true, skip the backend entirely and return
-    // dummy data. This is what lets the catalog render while /api/artworks/search
-    // returns 500. Toggle in src/environments/environment.ts (dev: true).
-    if (environment.useMock) {
-      return of(mockPagedItems(page, size));
-    }
-
     let httpParams = new HttpParams();
     if (params.authorId != null) httpParams = httpParams.set('authorId', params.authorId);
     if (params.mediaType) httpParams = httpParams.set('mediaType', params.mediaType);
     if (params.mediaName) httpParams = httpParams.set('mediaName', params.mediaName);
     if (params.yearFrom != null) httpParams = httpParams.set('yearFrom', params.yearFrom);
     if (params.yearTo != null) httpParams = httpParams.set('yearTo', params.yearTo);
-    httpParams = httpParams.set('page', page);
-    httpParams = httpParams.set('size', size);
+    httpParams = httpParams.set('page', params.page ?? 0);
+    httpParams = httpParams.set('size', params.size ?? 20);
 
     return this.http
       .get<PagedResult<ArtworkDto>>(`${this.baseUrl}/api/artworks/search`, { params: httpParams })
@@ -54,14 +37,7 @@ export class ArtworksApi {
             totalElements: res.totalElements,
           };
         }),
-        // MOCK FALLBACK (temporary, 500 workaround):
-        // Even with useMock off, if the live backend errors (500) or is
-        // unreachable, recover to dummy data instead of surfacing the error,
-        // so the page still shows something. Remove to let 500s surface again.
-        catchError((err) => {
-          console.warn('[ArtworksApi] search failed, serving mock data:', err);
-          return of(mockPagedItems(page, size));
-        }),
+        catchError(this.handleError('search')),
       );
   }
 
@@ -78,8 +54,6 @@ export class ArtworksApi {
   }
 
   private findViaSearch(id: number): Observable<CatalogItem> {
-    // Inherits the MOCK FALLBACK: search() returns dummy items on a 500, so the
-    // product page resolves a mock artwork too — no extra handling needed here.
     return this.search({ page: 0, size: 500 }).pipe(
       map((res) => {
         const found = res.items.find((i) => Number(i.id) === Number(id));
@@ -94,32 +68,16 @@ export class ArtworksApi {
 
   /** List all authors, for the filter dropdown. */
   authors(): Observable<Author[]> {
-    // MOCK FALLBACK (temporary, 500 workaround) — see search() above.
-    if (environment.useMock) {
-      return of(MOCK_AUTHORS);
-    }
-    return this.http.get<Author[]>(`${this.baseUrl}/api/authors`).pipe(
-      // Recover to dummy authors on backend error so the dropdown isn't empty.
-      catchError((err) => {
-        console.warn('[ArtworksApi] authors failed, serving mock data:', err);
-        return of(MOCK_AUTHORS);
-      }),
-    );
+    return this.http
+      .get<Author[]>(`${this.baseUrl}/api/authors`)
+      .pipe(catchError(this.handleError('authors')));
   }
 
   /** List all media types, for the filter dropdown. */
   mediaTypes(): Observable<string[]> {
-    // MOCK FALLBACK (temporary, 500 workaround) — see search() above.
-    if (environment.useMock) {
-      return of(MOCK_MEDIA_TYPES);
-    }
-    return this.http.get<string[]>(`${this.baseUrl}/api/mediatypes`).pipe(
-      // Recover to dummy media types on backend error.
-      catchError((err) => {
-        console.warn('[ArtworksApi] mediaTypes failed, serving mock data:', err);
-        return of(MOCK_MEDIA_TYPES);
-      }),
-    );
+    return this.http
+      .get<string[]>(`${this.baseUrl}/api/mediatypes`)
+      .pipe(catchError(this.handleError('mediaTypes')));
   }
 
   /** The full preview image URL for an artwork, resolved against our API base. */
