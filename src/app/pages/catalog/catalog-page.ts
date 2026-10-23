@@ -2,13 +2,14 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { TranslocoPipe } from '@jsverse/transloco';
 import { ArtworksApi } from '../../services/artworks-api';
 import { CatalogStore } from '../../store/catalog-store';
 
 @Component({
   selector: 'app-catalog-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, MatPaginatorModule],
+  imports: [RouterLink, MatPaginatorModule, TranslocoPipe],
   templateUrl: './catalog-page.html',
   styleUrl: './catalog-page.scss',
 })

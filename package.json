@@ -34,6 +34,7 @@
     "@angular/platform-server": "^20.3.33",
     "@angular/router": "^20.3.33",
     "@angular/ssr": "^20.3.33",
+    "@jsverse/transloco": "^7.6.1",
     "@ngrx/signals": "^20.1.0",
     "express": "^5.1.0",
     "openseadragon": "^6.1.1",

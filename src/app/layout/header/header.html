@@ -1,29 +1,33 @@
 <div class="top-bar">
-  <a class="brand" routerLink="/about" aria-label="НЕ БОЛТАЙ — home">
-    <img class="brand-logo" src="logo.jpg" alt="НЕ БОЛТАЙ — a collection of 20th century propaganda" />
+  <a class="brand" routerLink="/about" [attr.aria-label]="'COMMON.BRAND_HOME_ARIA' | transloco">
+    <img class="brand-logo" src="logo.jpg" [alt]="'COMMON.BRAND_LOGO_ALT' | transloco" />
   </a>
 
   <div class="top-actions">
     <label class="lang">
-      <span class="visually-hidden">Language</span>
+      <span class="visually-hidden">{{ 'HEADER.LANGUAGE' | transloco }}</span>
       <select [value]="lang()" (change)="setLang($any($event.target).value)">
         @for (l of languages; track l) {
-          <option [value]="l">{{ l }}</option>
+          <option [value]="l">{{ languageNames[l] }}</option>
         }
       </select>
     </label>
 
     @if (isAdmin()) {
-      <a class="action admin-link" routerLink="/admin">Admin panel</a>
+      <a class="action admin-link" routerLink="/admin">{{ 'HEADER.ADMIN_PANEL' | transloco }}</a>
     }
 
     @if (isLoggedIn()) {
       <span class="action account">{{ user()?.name }}</span>
-      <button type="button" class="action link-button" (click)="logout()">Logout</button>
+      <button type="button" class="action link-button" (click)="logout()">
+        {{ 'HEADER.LOGOUT' | transloco }}
+      </button>
     } @else {
-      <button type="button" class="action link-button" (click)="login()">Login</button>
+      <button type="button" class="action link-button" (click)="login()">
+        {{ 'HEADER.LOGIN' | transloco }}
+      </button>
       <button type="button" class="action link-button" (click)="loginAsAdmin()">
-        Login as admin
+        {{ 'HEADER.LOGIN_AS_ADMIN' | transloco }}
       </button>
     }
   </div>

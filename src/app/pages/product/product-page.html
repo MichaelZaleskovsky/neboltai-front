@@ -3,12 +3,12 @@
 @let crop = cropSource();
 
 @if (itemResource.isLoading()) {
-  <section class="not-found"><p>Loading…</p></section>
+  <section class="not-found"><p>{{ 'COMMON.LOADING' | transloco }}</p></section>
 } @else if (itemResource.error()) {
   <section class="not-found">
-    <p>Could not load this item.</p>
+    <p>{{ 'PRODUCT.LOAD_ERROR' | transloco }}</p>
     <p class="error-detail">{{ errorMessage() }}</p>
-    <a routerLink="/catalog">← Back to catalog</a>
+    <a routerLink="/catalog">{{ 'PRODUCT.BACK_TO_CATALOG' | transloco }}</a>
   </section>
 } @else if (current && (source || crop)) {
   <section class="product">
@@ -20,16 +20,16 @@
       ></div>
 
       <dl class="metadata">
-        <h2>Metadata</h2>
-        <div><dt>Author:</dt><dd>{{ current.author }}</dd></div>
-        <div><dt>Media:</dt><dd>{{ current.media }}</dd></div>
-        <div><dt>Size:</dt><dd>{{ current.size }}</dd></div>
-        <div><dt>Year:</dt><dd>{{ current.year }}</dd></div>
-        <div><dt>Name:</dt><dd>{{ current.name }}</dd></div>
+        <h2>{{ 'PRODUCT.METADATA' | transloco }}</h2>
+        <div><dt>{{ 'PRODUCT.META.AUTHOR' | transloco }}</dt><dd>{{ current.author }}</dd></div>
+        <div><dt>{{ 'PRODUCT.META.MEDIA' | transloco }}</dt><dd>{{ current.media }}</dd></div>
+        <div><dt>{{ 'PRODUCT.META.SIZE' | transloco }}</dt><dd>{{ current.size }}</dd></div>
+        <div><dt>{{ 'PRODUCT.META.YEAR' | transloco }}</dt><dd>{{ current.year }}</dd></div>
+        <div><dt>{{ 'PRODUCT.META.NAME' | transloco }}</dt><dd>{{ current.name }}</dd></div>
       </dl>
 
       <div class="description">
-        <h2>Description</h2>
+        <h2>{{ 'PRODUCT.DESCRIPTION' | transloco }}</h2>
         <p>{{ current.description }}</p>
       </div>
     </div>
@@ -47,7 +47,7 @@
       </div>
 
       <div class="viewer-controls">
-        <button type="button" (click)="zoomOut()" aria-label="Zoom out">−</button>
+        <button type="button" (click)="zoomOut()" [attr.aria-label]="'PRODUCT.ZOOM_OUT' | transloco">−</button>
         <input
           type="range"
           class="zoom-slider"
@@ -55,21 +55,23 @@
           [max]="maxZoomPercent()"
           [value]="zoomPercent()"
           (input)="onSliderInput($any($event.target).value)"
-          aria-label="Zoom level"
+          [attr.aria-label]="'PRODUCT.ZOOM_LEVEL' | transloco"
         />
-        <button type="button" (click)="zoomIn()" aria-label="Zoom in">+</button>
+        <button type="button" (click)="zoomIn()" [attr.aria-label]="'PRODUCT.ZOOM_IN' | transloco">+</button>
         <span class="spacer"></span>
-        <button type="button" class="fullscreen" (click)="fullScreen()">Full screen</button>
+        <button type="button" class="fullscreen" (click)="fullScreen()">
+          {{ 'PRODUCT.FULL_SCREEN' | transloco }}
+        </button>
       </div>
 
       @if (imageError()) {
-        <p class="image-error">Could not load the image: {{ imageError() }}</p>
+        <p class="image-error">{{ 'PRODUCT.IMAGE_ERROR' | transloco }} {{ imageError() }}</p>
       }
     </div>
   </section>
 } @else {
   <section class="not-found">
-    <p>Item not found.</p>
-    <a routerLink="/catalog">← Back to catalog</a>
+    <p>{{ 'PRODUCT.NOT_FOUND' | transloco }}</p>
+    <a routerLink="/catalog">{{ 'PRODUCT.BACK_TO_CATALOG' | transloco }}</a>
   </section>
 }

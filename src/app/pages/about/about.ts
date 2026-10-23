@@ -1,15 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-about',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [TranslocoPipe],
   template: `
     <section class="page">
-      <h1>About</h1>
-      <p>
-        НЕ БОЛТАЙ is an archive of posters and artworks. This is the About page — replace this
-        copy with the real project description.
-      </p>
+      <h1>{{ 'ABOUT.TITLE' | transloco }}</h1>
+      <p>{{ 'ABOUT.BODY' | transloco }}</p>
     </section>
   `,
   styles: [
