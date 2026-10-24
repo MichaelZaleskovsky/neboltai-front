@@ -1,13 +1,13 @@
 <div class="catalog-toolbar">
-          <label class="pager-field">
-            <span>{{ 'CATALOG.ITEMS_PER_PAGE' | transloco }}</span>
-            <select [value]="store.pageSize()" (change)="onPageSizeChange($any($event.target).value)">
-              <option value="3">3</option>
-              <option value="5">5</option>
-              <option value="10">10</option>
-            </select>
-          </label>
- </div>
+  <label class="pager-field" for="catalog-page-size">
+    <span>{{ 'CATALOG.ITEMS_PER_PAGE' | transloco }}</span>
+    <select id="catalog-page-size" (change)="onPageSizeChange($any($event.target).value)">
+      @for (size of pageSizes; track size) {
+        <option [value]="size" [selected]="size === store.pageSize()">{{ size }}</option>
+      }
+    </select>
+  </label>
+</div>
 <section class="catalog">
   <aside class="filter-column">
   <form class="filter" [formGroup]="filters" (ngSubmit)="applyFilters()">
@@ -65,25 +65,7 @@
       <p class="status error">{{ store.error() }}</p>
     } @else {
       @for (item of store.items(); track item.id) {
-        <article class="item">
-          <a class="thumb" [routerLink]="['/catalog', item.id]">
-            <img [src]="item.previewUrl" [alt]="item.name" loading="lazy" />
-          </a>
-          <dl class="metadata">
-            <div>
-              <dt>{{ 'CATALOG.META.NAME' | transloco }}</dt>
-              <dd><a [routerLink]="['/catalog', item.id]">{{ item.name }}</a></dd>
-            </div>
-            <div><dt>{{ 'CATALOG.META.AUTHOR' | transloco }}</dt><dd>{{ item.author }}</dd></div>
-            <div><dt>{{ 'CATALOG.META.MEDIA_TYPE' | transloco }}</dt><dd>{{ item.mediaType }}</dd></div>
-            <div><dt>{{ 'CATALOG.META.MEDIA' | transloco }}</dt><dd>{{ item.media }}</dd></div>
-            <div><dt>{{ 'CATALOG.META.SIZE' | transloco }}</dt><dd>{{ item.size }}</dd></div>
-            <div><dt>{{ 'CATALOG.META.YEAR' | transloco }}</dt><dd>{{ item.year }}</dd></div>
-            @if (item.description.trim()) {
-              <div class="description"><dd>{{ item.description }}</dd></div>
-            }
-          </dl>
-        </article>
+        <app-catalog-item-card [item]="item" />
       } @empty {
         <p class="status">{{ 'CATALOG.EMPTY' | transloco }}</p>
       }

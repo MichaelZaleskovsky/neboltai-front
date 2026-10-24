@@ -1,0 +1,65 @@
+:host {
+  display: block;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 1.5rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px dotted #ccc;
+}
+
+:host(:first-of-type) .item {
+  padding-top: 0;
+}
+
+.thumb {
+  display: block;
+  width: 160px;
+  border: 1px solid #ddd;
+  background: transparent;
+  align-self: start;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+.metadata {
+  margin: 0;
+  line-height: 1.2;
+
+  div {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.05rem 0;
+  }
+
+  dt {
+    flex: 0 0 95px;
+    color: #666;
+    font-weight: 500;
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  .description {
+    margin-top: 0.25rem;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+  }
+
+  a {
+    color: #c0392b;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}

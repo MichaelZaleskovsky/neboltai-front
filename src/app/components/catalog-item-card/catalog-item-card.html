@@ -1,0 +1,21 @@
+@let art = item();
+
+<article class="item">
+  <a class="thumb" [routerLink]="['/catalog', art.id]">
+    <img [src]="art.previewUrl" [alt]="art.name" loading="lazy" />
+  </a>
+  <dl class="metadata">
+    <div>
+      <dt>{{ 'CATALOG.META.NAME' | transloco }}</dt>
+      <dd><a [routerLink]="['/catalog', art.id]">{{ art.name }}</a></dd>
+    </div>
+    <div><dt>{{ 'CATALOG.META.AUTHOR' | transloco }}</dt><dd>{{ art.author }}</dd></div>
+    <div><dt>{{ 'CATALOG.META.MEDIA_TYPE' | transloco }}</dt><dd>{{ art.mediaType }}</dd></div>
+    <div><dt>{{ 'CATALOG.META.MEDIA' | transloco }}</dt><dd>{{ art.media }}</dd></div>
+    <div><dt>{{ 'CATALOG.META.SIZE' | transloco }}</dt><dd>{{ art.size }}</dd></div>
+    <div><dt>{{ 'CATALOG.META.YEAR' | transloco }}</dt><dd>{{ art.year }}</dd></div>
+    @if (art.description.trim()) {
+      <div class="description"><dd>{{ art.description }}</dd></div>
+    }
+  </dl>
+</article>
