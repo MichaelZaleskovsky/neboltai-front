@@ -43,6 +43,7 @@ export class OsdViewer {
    * `tileSources`.
    */
   readonly cropSource = input<CropTileSourceConfig | null>(null);
+  readonly fallbackImageUrl = input<string>();
 
   /** Optional overrides merged into the OpenSeadragon options. */
   readonly options = input<Partial<OpenSeadragon.Options>>({});
@@ -79,6 +80,7 @@ export class OsdViewer {
 
   private viewer?: OpenSeadragon.Viewer;
   private osd?: typeof OpenSeadragon;
+  private usingFallback = false;
   private readonly zone = inject(NgZone);
 
   constructor() {
@@ -125,7 +127,15 @@ export class OsdViewer {
       });
 
       this.viewer.addHandler('open-failed', (event) => {
-        this.loadError.emit(String(event.message ?? 'Image failed to load'));
+        if (this.usingFallback || !this.openFallback()) {
+          this.zone.run(() => this.loadError.emit(String(event.message ?? 'Image failed to load')));
+        }
+      });
+
+      this.viewer.addHandler('tile-load-failed', () => {
+        if (!this.openFallback()) {
+          this.zone.run(() => this.loadError.emit('Image failed to load'));
+        }
       });
 
       // Once the image is loaded, fit the entire image into view immediately.
@@ -163,8 +173,10 @@ export class OsdViewer {
       // Track both inputs so either change re-runs this.
       this.tileSources();
       this.cropSource();
+      this.fallbackImageUrl();
       const source = this.resolveSource();
       if (this.viewer && source != null) {
+        this.usingFallback = false;
         this.viewer.open(source as OpenSeadragon.TileSourceSpecifier);
       }
     });
@@ -176,6 +188,16 @@ export class OsdViewer {
   }
 
   // Imperative controls the host page can call via a template reference.
+
+  private openFallback(): boolean {
+    const url = this.fallbackImageUrl();
+    if (!this.viewer || !this.cropSource() || !url) return false;
+    // Ignore remaining failed crop requests once the preview is opening.
+    if (this.usingFallback) return true;
+    this.usingFallback = true;
+    this.viewer.open({ type: 'image', url } as unknown as OpenSeadragon.TileSourceSpecifier);
+    return true;
+  }
 
   zoomIn(factor = 1.4): void {
     const vp = this.viewer?.viewport;

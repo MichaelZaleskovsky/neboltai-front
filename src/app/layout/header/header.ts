@@ -16,6 +16,7 @@ export class Header {
   private readonly i18n = inject(I18n);
 
   protected readonly isLoggedIn = this.auth.isLoggedIn;
+  protected readonly accountIcon = 'Cabinet.png';
 
   protected readonly lang = this.i18n.lang;
   protected readonly languages = this.i18n.languages;

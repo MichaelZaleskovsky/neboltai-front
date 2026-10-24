@@ -43,10 +43,16 @@
   padding: 0.25rem;
 }
 
+.account-icon {
+  display: block;
+  object-fit: contain;
+}
+
 .login-button {
   box-sizing: border-box;
-  width: 84px;
+  min-width: 120px;
   flex-shrink: 0;
+  white-space: nowrap;
   padding: 0.4rem 0.75rem;
   border: 1px solid #a87563;
   border-radius: 4px;

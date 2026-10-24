@@ -29,29 +29,40 @@
 }
 
 .metadata {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  column-gap: 0.5rem;
+  align-content: start;
+  min-width: 0;
   margin: 0;
   line-height: 1.2;
 
   div {
-    display: flex;
-    gap: 0.5rem;
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
     padding: 0.05rem 0;
   }
 
   dt {
-    flex: 0 0 95px;
+    white-space: nowrap;
     color: #666;
     font-weight: 500;
   }
 
   dd {
     margin: 0;
+    overflow-wrap: anywhere;
   }
 
   .description {
     margin-top: 0.25rem;
     white-space: pre-line;
     overflow-wrap: anywhere;
+
+    dd {
+      grid-column: 1 / -1;
+    }
   }
 
   a {
