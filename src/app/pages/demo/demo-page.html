@@ -1,13 +1,10 @@
 <section class="demo">
-  <h1>Viewer comparison</h1>
-  <p class="hint">
-    Left is a heavy tiled DZI (true deep zoom). Right is a plain single image (like the backend
-    preview). Try panning and zooming each to compare behavior.
-  </p>
+  <h1>{{ 'DEMO.TITLE' | transloco }}</h1>
+  <p class="hint">{{ 'DEMO.HINT' | transloco }}</p>
 
   <div class="grid">
     <figure>
-      <figcaption>Tiled DZI (deep zoom)</figcaption>
+      <figcaption>{{ 'DEMO.TILED' | transloco }}</figcaption>
       <div class="viewer">
         <app-osd-viewer #dzi [tileSources]="dziSource" (loadError)="dziError.set($event)" />
       </div>
@@ -17,7 +14,7 @@
     </figure>
 
     <figure>
-      <figcaption>Single image (non-tiled)</figcaption>
+      <figcaption>{{ 'DEMO.SINGLE' | transloco }}</figcaption>
       <div class="viewer">
         <app-osd-viewer #img [tileSources]="imageSource" (loadError)="imageError.set($event)" />
       </div>

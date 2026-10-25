@@ -11,6 +11,7 @@ import {
 import { RouterLink } from '@angular/router';
 import { rxResource } from '@angular/core/rxjs-interop';
 import type OpenSeadragon from 'openseadragon';
+import { TranslocoPipe } from '@jsverse/transloco';
 import { ArtworksApi } from '../../services/artworks-api';
 import { OsdViewer } from '../../osd-viewer/osd-viewer';
 import { CropTileSourceConfig } from '../../osd-viewer/crop-tile-source';
@@ -18,7 +19,7 @@ import { CropTileSourceConfig } from '../../osd-viewer/crop-tile-source';
 @Component({
   selector: 'app-product-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, OsdViewer],
+  imports: [RouterLink, OsdViewer, TranslocoPipe],
   templateUrl: './product-page.html',
   styleUrl: './product-page.scss',
 })

@@ -1,14 +1,15 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { TranslocoPipe } from '@jsverse/transloco';
 import { ArtworksApi } from '../../services/artworks-api';
 import { CatalogStore } from '../../store/catalog-store';
+import { CatalogItemCard } from '../../components/catalog-item-card/catalog-item-card';
 
 @Component({
   selector: 'app-catalog-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [ReactiveFormsModule, TranslocoPipe, CatalogItemCard],
   templateUrl: './catalog-page.html',
   styleUrl: './catalog-page.scss',
 })
@@ -62,6 +63,9 @@ export class CatalogPage {
     defaultValue: [],
   });
 
+  /** Allowed page sizes — single source of truth for the selector and guard. */
+  protected readonly pageSizes = [3, 5, 10] as const;
+
   protected applyFilters(): void {
     const filters = this.filters.getRawValue();
     if (this.filters.valid &&
@@ -83,7 +87,7 @@ export class CatalogPage {
 
   protected onPageSizeChange(value: string): void {
     const size = Number(value);
-    if ([3, 5, 10].includes(size) && size !== this.store.pageSize()) {
+    if (this.pageSizes.includes(size as (typeof this.pageSizes)[number]) && size !== this.store.pageSize()) {
       this.store.setPage(0, size);
     }
   }
