@@ -4,6 +4,15 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 ## Development server
 
+### Backend selection
+
+The backend is selected automatically by the Angular build configuration:
+
+- Local development: `npm start` uses `proxy.conf.json` to forward `/api` requests to `http://192.168.8.104:8080`.
+- Production / VM: `npm run build` uses `environment.prod.ts` with `http://130.61.19.127:8080`. Angular replaces `environment.ts` during the production build.
+
+Commit both configurations to Git. Pushing to GitHub does not select the environment; the build command does. On the VM, build with `npm ci` followed by `npm run build`, then run `npm run serve:ssr:neboltai` (or use the Docker deployment). No address changes are needed between local development and production.
+
 To start a local development server, run:
 
 ```bash

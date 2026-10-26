@@ -1,0 +1,35 @@
+<header class="account-header">
+  <h1>My account</h1>
+  <a class="admin-panel" routerLink="/account/adminpanel">Admin panel</a>
+</header>
+
+<form aria-label="Profile details">
+  <fieldset>
+    <legend>Personal information</legend>
+    <div class="fields">
+      <label>First name<input type="text" name="firstName" autocomplete="given-name" /></label>
+      <label>Last name<input type="text" name="lastName" autocomplete="family-name" /></label>
+      <label>Middle name / Patronymic<input type="text" name="middleName" autocomplete="additional-name" /></label>
+      <label>Date of birth<input type="date" name="dateOfBirth" autocomplete="bday" /></label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Contact information</legend>
+    <div class="fields">
+      <label>Email address<input type="email" name="email" autocomplete="email" /></label>
+      <label>Phone number<input type="tel" name="phone" autocomplete="tel" /></label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Address</legend>
+    <div class="fields">
+      <label class="full-width">Street address<textarea name="streetAddress" autocomplete="street-address" rows="2"></textarea></label>
+      <label>City<input type="text" name="city" autocomplete="address-level2" /></label>
+      <label>State / Province / Region<input type="text" name="region" autocomplete="address-level1" /></label>
+      <label>Postal code<input type="text" name="postalCode" autocomplete="postal-code" /></label>
+      <label>Country<input type="text" name="country" autocomplete="country-name" /></label>
+    </div>
+  </fieldset>
+</form>

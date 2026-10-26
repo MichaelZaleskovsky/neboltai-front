@@ -8,13 +8,44 @@ import {
   ArtworkSearchParams,
   CatalogItem,
   MediaType,
+  Media,
   PagedResult,
 } from '../models/catalog-item';
 
 @Injectable({ providedIn: 'root' })
 export class ArtworksApi {
+  uploadImage(file: File): Observable<{ imageId: string; width: number; height: number; previewUrl?: string }> {
+    const body = new FormData();
+    body.append('file', file);
+    return this.http.post<{ imageId: string; width: number; height: number; previewUrl?: string }>(`${this.baseUrl}/api/artworks/addImage`, body);
+  }
+
+  saveImageMetadata(metadata: { imageId: string; imageName: string; fileName: string; width: number; height: number; authorId: number; mediaId: number | null; year: number | null; description: string }): Observable<string> {
+    return this.http.post(`${this.baseUrl}/api/artworks/addMediaData`, metadata, { responseType: 'text' });
+  }
+
+  deleteImage(imageId: string): Observable<string> {
+    return this.http.delete(`${this.baseUrl}/api/artworks/deleteImage/${encodeURIComponent(imageId)}`, { responseType: 'text' });
+  }
   private readonly http = inject(HttpClient);
   private readonly baseUrl = inject(API_BASE_URL);
+
+  medias(): Observable<Media[]> {
+    return this.http.get<Media[]>(`${this.baseUrl}/api/medias`)
+      .pipe(catchError(this.handleError('medias')));
+  }
+
+  addAuthor(author: { familyName: string; name: string; secondName?: string; description?: string }): Observable<string> {
+    return this.http.post(`${this.baseUrl}/api/addAuthor`, author, { responseType: 'text' });
+  }
+
+  addMedia(media: { name: string; typeId: number }): Observable<string> {
+    return this.http.post(`${this.baseUrl}/api/addMedia`, media, { responseType: 'text' });
+  }
+
+  addMediaType(mediaType: { type: string }): Observable<string> {
+    return this.http.post(`${this.baseUrl}/api/addMediaType`, mediaType, { responseType: 'text' });
+  }
 
   /** Search artworks with optional filters and paging. */
   search(params: ArtworkSearchParams = {}): Observable<PagedResult<CatalogItem>> {

@@ -63,6 +63,11 @@ export interface MediaType {
   type: string;
 }
 
+export interface Media {
+  id: number;
+  name: string;
+}
+
 /** Filters accepted by the artworks search endpoint. */
 export interface ArtworkSearchParams {
   authorId?: number;
