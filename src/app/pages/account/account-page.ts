@@ -1,10 +1,12 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TranslocoModule } from '@jsverse/transloco';
+import { I18n } from '../../i18n/i18n';
 
 @Component({
   selector: 'app-account-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink],
+  imports: [RouterLink, TranslocoModule],
   templateUrl: './account-page.html',
   styles: `
     :host { display: block; max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
@@ -37,4 +39,6 @@ import { RouterLink } from '@angular/router';
     }
   `,
 })
-export class AccountPage {}
+export class AccountPage {
+  private readonly i18n = inject(I18n);
+}

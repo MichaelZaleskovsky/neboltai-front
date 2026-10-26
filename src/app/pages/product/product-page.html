@@ -40,21 +40,21 @@
         </button>
       </div>
       <dl class="metadata">
-        <div><dt>{{ 'PRODUCT.META.NAME' | transloco }}</dt><dd>{{ current.name }}</dd></div>
-
-        <div><dt>{{ 'PRODUCT.META.AUTHOR' | transloco }}</dt><dd>{{ current.author }}</dd></div>
-        <div><dt>{{ 'PRODUCT.META.MEDIA_TYPE' | transloco }}</dt><dd>{{ current.mediaType }}</dd></div>
-        <div><dt>{{ 'PRODUCT.META.MEDIA' | transloco }}</dt><dd>{{ current.media }}</dd></div>
-        <div><dt>{{ 'PRODUCT.META.SIZE' | transloco }}</dt><dd>{{ current.size }}</dd></div>
-        <div><dt>{{ 'PRODUCT.META.YEAR' | transloco }}</dt><dd>{{ current.year }}</dd></div>
-
+        @for (row of metaRows(); track row.key) {
+          @if (row.value) {
+            <div>
+              <dt>{{ row.key | transloco }}</dt>
+              <dd>{{ row.value }}</dd>
+            </div>
+          }
+        }
       </dl>
 
       @if (current.description.trim()) {
         <p class="description">{{ current.description }}</p>
       }
       @if (imageError()) {
-        <p class="image-error">{{ 'PRODUCT.IMAGE_ERROR' | transloco }} {{ imageError() }}</p>
+        <p class="image-error">{{ imageError() | transloco }}</p>
       }
     </div>
     <div class="right">

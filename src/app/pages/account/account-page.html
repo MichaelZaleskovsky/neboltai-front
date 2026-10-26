@@ -1,35 +1,35 @@
 <header class="account-header">
-  <h1>My account</h1>
-  <a class="admin-panel" routerLink="/account/adminpanel">Admin panel</a>
+  <h1>{{ 'ACCOUNT.TITLE' | transloco }}</h1>
+  <a class="admin-panel" routerLink="/account/adminpanel">{{ 'ACCOUNT.ADMIN_PANEL' | transloco }}</a>
 </header>
 
-<form aria-label="Profile details">
+<form [attr.aria-label]="'ACCOUNT.PROFILE_DETAILS' | transloco">
   <fieldset>
-    <legend>Personal information</legend>
+    <legend>{{ 'ACCOUNT.PERSONAL_INFORMATION' | transloco }}</legend>
     <div class="fields">
-      <label>First name<input type="text" name="firstName" autocomplete="given-name" /></label>
-      <label>Last name<input type="text" name="lastName" autocomplete="family-name" /></label>
-      <label>Middle name / Patronymic<input type="text" name="middleName" autocomplete="additional-name" /></label>
-      <label>Date of birth<input type="date" name="dateOfBirth" autocomplete="bday" /></label>
+      <label>{{ 'ACCOUNT.FIRST_NAME' | transloco }}<input type="text" name="firstName" autocomplete="given-name" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="next" /></label>
+      <label>{{ 'ACCOUNT.LAST_NAME' | transloco }}<input type="text" name="lastName" autocomplete="family-name" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="next" /></label>
+      <label>{{ 'ACCOUNT.MIDDLE_NAME_PATRONYMIC' | transloco }}<input type="text" name="middleName" autocomplete="additional-name" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="next" /></label>
+      <label>{{ 'ACCOUNT.DATE_OF_BIRTH' | transloco }}<input type="date" name="dateOfBirth" autocomplete="bday" enterkeyhint="next" /></label>
     </div>
   </fieldset>
 
   <fieldset>
-    <legend>Contact information</legend>
+    <legend>{{ 'ACCOUNT.CONTACT_INFORMATION' | transloco }}</legend>
     <div class="fields">
-      <label>Email address<input type="email" name="email" autocomplete="email" /></label>
-      <label>Phone number<input type="tel" name="phone" autocomplete="tel" /></label>
+      <label>{{ 'ACCOUNT.EMAIL_ADDRESS' | transloco }}<input type="email" name="email" autocomplete="email" inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="next" /></label>
+      <label>{{ 'ACCOUNT.PHONE_NUMBER' | transloco }}<input type="tel" name="phone" autocomplete="tel" inputmode="tel" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="next" /></label>
     </div>
   </fieldset>
 
   <fieldset>
-    <legend>Address</legend>
+    <legend>{{ 'ACCOUNT.ADDRESS' | transloco }}</legend>
     <div class="fields">
-      <label class="full-width">Street address<textarea name="streetAddress" autocomplete="street-address" rows="2"></textarea></label>
-      <label>City<input type="text" name="city" autocomplete="address-level2" /></label>
-      <label>State / Province / Region<input type="text" name="region" autocomplete="address-level1" /></label>
-      <label>Postal code<input type="text" name="postalCode" autocomplete="postal-code" /></label>
-      <label>Country<input type="text" name="country" autocomplete="country-name" /></label>
+      <label class="full-width">{{ 'ACCOUNT.STREET_ADDRESS' | transloco }}<textarea name="streetAddress" autocomplete="street-address" rows="2" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="next"></textarea></label>
+      <label>{{ 'ACCOUNT.CITY' | transloco }}<input type="text" name="city" autocomplete="address-level2" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="next" /></label>
+      <label>{{ 'ACCOUNT.STATE_PROVINCE_REGION' | transloco }}<input type="text" name="region" autocomplete="address-level1" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="next" /></label>
+      <label>{{ 'ACCOUNT.POSTAL_CODE' | transloco }}<input type="text" name="postalCode" autocomplete="postal-code" inputmode="numeric" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="next" /></label>
+      <label>{{ 'ACCOUNT.COUNTRY' | transloco }}<input type="text" name="country" autocomplete="country-name" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="done" /></label>
     </div>
   </fieldset>
 </form>

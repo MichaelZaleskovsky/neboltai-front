@@ -81,6 +81,8 @@ export class OsdViewer {
   private viewer?: OpenSeadragon.Viewer;
   private osd?: typeof OpenSeadragon;
   private usingFallback = false;
+  private tileFailCount = 0;
+  private static readonly TILE_FAIL_THRESHOLD = 3; // consecutive failures before fallback
   private readonly zone = inject(NgZone);
 
   constructor() {
@@ -128,13 +130,23 @@ export class OsdViewer {
 
       this.viewer.addHandler('open-failed', (event) => {
         if (this.usingFallback || !this.openFallback()) {
-          this.zone.run(() => this.loadError.emit(String(event.message ?? 'Image failed to load')));
+          this.zone.run(() =>
+            this.loadError.emit('PRODUCT.IMAGE_LOAD_ERROR'),
+          );
         }
       });
 
       this.viewer.addHandler('tile-load-failed', () => {
-        if (!this.openFallback()) {
-          this.zone.run(() => this.loadError.emit('Image failed to load'));
+        // Guard: if already falling back, ignore further failures.
+        if (this.usingFallback) return;
+
+        // Only trigger the fallback after several consecutive failures to
+        // avoid falling back on a single transient network hiccup.
+        this.tileFailCount++;
+        if (this.tileFailCount >= OsdViewer.TILE_FAIL_THRESHOLD) {
+          if (!this.openFallback()) {
+            this.zone.run(() => this.loadError.emit('PRODUCT.IMAGE_LOAD_ERROR'));
+          }
         }
       });
 
@@ -177,6 +189,7 @@ export class OsdViewer {
       const source = this.resolveSource();
       if (this.viewer && source != null) {
         this.usingFallback = false;
+        this.tileFailCount = 0;
         this.viewer.open(source as OpenSeadragon.TileSourceSpecifier);
       }
     });

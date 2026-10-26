@@ -1,94 +1,94 @@
-<h1>Admin panel</h1>
+<h1>{{ 'ADMINPANEL.TITLE' | transloco }}</h1>
 <div class="sections">
   <details>
-    <summary>Add author</summary>
+    <summary>{{ 'ADMINPANEL.ADD_AUTHOR' | transloco }}</summary>
     <form #authorForm="ngForm" (ngSubmit)="saveAuthor(authorForm)">
-      <label><span>First name *:</span><input name="name" [(ngModel)]="author.name" required pattern=".*\S.*" /></label>
-      <label><span>Second name:</span><input name="secondName" [(ngModel)]="author.secondName" /></label>
-      <label><span>Last name *:</span><input name="familyName" [(ngModel)]="author.familyName" required pattern=".*\S.*" /></label>
-      <label><span>Description:</span><textarea name="description" [(ngModel)]="author.description" rows="3"></textarea></label>
-      <button type="submit" [disabled]="authorForm.invalid || pending()['author']">{{ pending()['author'] ? 'Saving…' : 'Save' }}</button>
+      <label><span>{{ 'ADMINPANEL.FIRST_NAME_REQUIRED' | transloco }}</span><input name="name" [(ngModel)]="author.name" required pattern=".*\S.*" /></label>
+      <label><span>{{ 'ADMINPANEL.SECOND_NAME' | transloco }}</span><input name="secondName" [(ngModel)]="author.secondName" /></label>
+      <label><span>{{ 'ADMINPANEL.LAST_NAME_REQUIRED' | transloco }}</span><input name="familyName" [(ngModel)]="author.familyName" required pattern=".*\S.*" /></label>
+      <label><span>{{ 'ADMINPANEL.DESCRIPTION' | transloco }}</span><textarea name="description" [(ngModel)]="author.description" rows="3"></textarea></label>
+      <button type="submit" [disabled]="authorForm.invalid || pending()['author']">{{ pending()['author'] ? ('ADMINPANEL.SAVING' | transloco) : ('ADMINPANEL.SAVE' | transloco) }}</button>
       <p role="status" [class.error]="errors()['author']">{{ messages()['author'] }}</p>
     </form>
   </details>
 
   <details>
-    <summary>Add media</summary>
+    <summary>{{ 'ADMINPANEL.ADD_MEDIA' | transloco }}</summary>
     <form #mediaForm="ngForm" (ngSubmit)="saveMedia(mediaForm)">
-      <label><span>Name *:</span><input name="name" [(ngModel)]="media.name" required pattern=".*\S.*" /></label>
-      <label><span>Media type *:</span><select name="typeId" [(ngModel)]="media.typeId" required>
+      <label><span>{{ 'ADMINPANEL.NAME_REQUIRED' | transloco }}</span><input name="name" [(ngModel)]="media.name" required pattern=".*\S.*" /></label>
+      <label><span>{{ 'ADMINPANEL.MEDIA_TYPE_REQUIRED' | transloco }}</span><select name="typeId" [(ngModel)]="media.typeId" required>
           <option [ngValue]="null"></option>
           @for (type of mediaTypes.value(); track type.id) { <option [ngValue]="type.id">{{ type.type }}</option> }
         </select>
       </label>
-      @if (mediaTypes.isLoading()) { <p>Loading media types…</p> }
-      @if (mediaTypes.error()) { <p class="error" role="alert">Unable to load media types.</p><button type="button" (click)="mediaTypes.reload()">Retry</button> }
-      <button type="submit" [disabled]="mediaForm.invalid || pending()['media']">{{ pending()['media'] ? 'Saving…' : 'Save' }}</button>
+      @if (mediaTypes.isLoading()) { <p>{{ 'ADMINPANEL.LOADING_MEDIA_TYPES' | transloco }}</p> }
+      @if (mediaTypes.error()) { <p class="error" role="alert">{{ 'ADMINPANEL.LOAD_MEDIA_TYPES_ERROR' | transloco }}</p><button type="button" (click)="mediaTypes.reload()">{{ 'ADMINPANEL.RETRY' | transloco }}</button> }
+      <button type="submit" [disabled]="mediaForm.invalid || pending()['media']">{{ pending()['media'] ? ('ADMINPANEL.SAVING' | transloco) : ('ADMINPANEL.SAVE' | transloco) }}</button>
       <p role="status" [class.error]="errors()['media']">{{ messages()['media'] }}</p>
     </form>
   </details>
 
   <details>
-    <summary>Add media type</summary>
+    <summary>{{ 'ADMINPANEL.ADD_MEDIA_TYPE' | transloco }}</summary>
     <form #typeForm="ngForm" (ngSubmit)="saveMediaType(typeForm)">
-      <label><span>Name *:</span><input name="name" [(ngModel)]="mediaType.name" required pattern=".*\S.*" /></label>
-      <button type="submit" [disabled]="typeForm.invalid || pending()['type']">{{ pending()['type'] ? 'Saving…' : 'Save' }}</button>
+      <label><span>{{ 'ADMINPANEL.NAME_REQUIRED' | transloco }}</span><input name="name" [(ngModel)]="mediaType.name" required pattern=".*\S.*" /></label>
+      <button type="submit" [disabled]="typeForm.invalid || pending()['type']">{{ pending()['type'] ? ('ADMINPANEL.SAVING' | transloco) : ('ADMINPANEL.SAVE' | transloco) }}</button>
       <p role="status" [class.error]="errors()['type']">{{ messages()['type'] }}</p>
     </form>
   </details>
 
   <details>
-    <summary>Load image</summary>
+    <summary>{{ 'ADMINPANEL.LOAD_IMAGE' | transloco }}</summary>
     <div class="image-fields">
       <div class="file-picker">
         <input #imageFile hidden type="file" accept=".tif,.tiff,.jpg,.jpeg,image/tiff,image/jpeg" (change)="selectFile($event)" />
-        <button type="button" [disabled]="!!imageBusy() || !!uploadedImage()" (click)="imageFile.click()">Choose file</button>
-        <span aria-live="polite">{{ selectedFileName() || 'No file chosen' }}</span>
+        <button type="button" [disabled]="!!imageBusy() || !!uploadedImage()" (click)="imageFile.click()">{{ 'ADMINPANEL.CHOOSE_FILE' | transloco }}</button>
+        <span aria-live="polite">{{ selectedFileName() || ('ADMINPANEL.NO_FILE_CHOSEN' | transloco) }}</span>
       </div>
       @if (fileError()) { <p class="error" role="alert">{{ fileError() }}</p> }
       <div class="image-summary">
         <div class="image-preview">
-          @if (uploadedImage()) { <img [src]="previewUrl()" alt="Uploaded image preview" /> } @else { <span>PREVIEW</span> }
+          @if (uploadedImage()) { <img [src]="previewUrl()" [attr.alt]="'ADMINPANEL.UPLOADED_IMAGE_PREVIEW_ALT' | transloco" /> } @else { <span>{{ 'ADMINPANEL.PREVIEW' | transloco }}</span> }
         </div>
         <div class="image-properties">
-          <label><span>Image ID:</span><input type="text" name="imageId" [value]="uploadedImage()?.imageId ?? ''" readonly /></label>
-          <label><span>File name:</span><input type="text" name="fileName" [value]="selectedFileName()" readonly /></label>
+          <label><span>{{ 'ADMINPANEL.IMAGE_ID' | transloco }}</span><input type="text" name="imageId" [value]="uploadedImage()?.imageId ?? ''" readonly /></label>
+          <label><span>{{ 'ADMINPANEL.FILE_NAME' | transloco }}</span><input type="text" name="fileName" [value]="selectedFileName()" readonly /></label>
           <div class="dimensions">
-            <label for="image-width">Width (px):</label>
+            <label for="image-width">{{ 'ADMINPANEL.WIDTH_PX' | transloco }}</label>
             <div class="dimension-inputs">
               <input id="image-width" type="number" name="width" [value]="uploadedImage()?.width ?? ''" readonly />
-              <label for="image-height">Height (px):</label>
+              <label for="image-height">{{ 'ADMINPANEL.HEIGHT_PX' | transloco }}</label>
               <input id="image-height" type="number" name="height" [value]="uploadedImage()?.height ?? ''" readonly />
             </div>
           </div>
         </div>
       </div>
-      <label><span>Name *:</span><input type="text" name="imageName" [(ngModel)]="imageMetadata.name" [disabled]="!!imageBusy()" required pattern=".*\S.*" /></label>
-      <label><span>Author *:</span><select name="imageAuthor" [(ngModel)]="imageMetadata.authorId" [disabled]="!!imageBusy()" required><option [ngValue]="null"></option>
+      <label><span>{{ 'ADMINPANEL.NAME_REQUIRED' | transloco }}</span><input type="text" name="imageName" [(ngModel)]="imageMetadata.name" [disabled]="!!imageBusy()" required pattern=".*\S.*" /></label>
+      <label><span>{{ 'ADMINPANEL.AUTHOR_REQUIRED' | transloco }}</span><select name="imageAuthor" [(ngModel)]="imageMetadata.authorId" [disabled]="!!imageBusy()" required><option [ngValue]="null"></option>
         @for (author of authors.value(); track author.id) { <option [ngValue]="author.id">{{ author.author }}</option> }
       </select></label>
-      @if (authors.isLoading()) { <p>Loading authors…</p> }
-      @if (authors.error()) { <p class="error" role="alert">Unable to load authors.</p><button type="button" (click)="authors.reload()">Retry</button> }
-      <label><span>Media:</span><select name="imageMedia" [(ngModel)]="imageMetadata.mediaId" [disabled]="!!imageBusy()"><option [ngValue]="null"></option>
+      @if (authors.isLoading()) { <p>{{ 'ADMINPANEL.LOADING_AUTHORS' | transloco }}</p> }
+      @if (authors.error()) { <p class="error" role="alert">{{ 'ADMINPANEL.LOAD_AUTHORS_ERROR' | transloco }}</p><button type="button" (click)="authors.reload()">{{ 'ADMINPANEL.RETRY' | transloco }}</button> }
+      <label><span>{{ 'ADMINPANEL.MEDIA' | transloco }}</span><select name="imageMedia" [(ngModel)]="imageMetadata.mediaId" [disabled]="!!imageBusy()"><option [ngValue]="null"></option>
         @for (item of medias.value(); track item.id) { <option [ngValue]="item.id">{{ item.name }}</option> }
       </select></label>
-      @if (medias.isLoading()) { <p>Loading media…</p> }
-      @if (medias.error()) { <p class="error" role="alert">Unable to load media.</p><button type="button" (click)="medias.reload()">Retry</button> }
-      <label><span>Year:</span><input type="number" name="year" [(ngModel)]="imageMetadata.year" [disabled]="!!imageBusy()" step="1" /></label>
-      <label><span>Description:</span><textarea name="imageDescription" [(ngModel)]="imageMetadata.description" [disabled]="!!imageBusy()" rows="3"></textarea></label>
+      @if (medias.isLoading()) { <p>{{ 'ADMINPANEL.LOADING_MEDIA' | transloco }}</p> }
+      @if (medias.error()) { <p class="error" role="alert">{{ 'ADMINPANEL.LOAD_MEDIA_ERROR' | transloco }}</p><button type="button" (click)="medias.reload()">{{ 'ADMINPANEL.RETRY' | transloco }}</button> }
+      <label><span>{{ 'ADMINPANEL.YEAR' | transloco }}</span><input type="number" name="year" [(ngModel)]="imageMetadata.year" [disabled]="!!imageBusy()" step="1" /></label>
+      <label><span>{{ 'ADMINPANEL.DESCRIPTION' | transloco }}</span><textarea name="imageDescription" [(ngModel)]="imageMetadata.description" [disabled]="!!imageBusy()" rows="3"></textarea></label>
       @if (imageBusy()) {
         <div class="upload-status" role="status"><span class="spinner" aria-hidden="true"></span>{{ imageBusy() }}</div>
       }
       @if (uploadedImage()) {
         <div class="upload-confirmation">
-          <p>File uploaded successfully. Please check all the details.</p>
+          <p>{{ 'ADMINPANEL.UPLOAD_SUCCESS' | transloco }}</p>
           <div class="upload-actions">
-            <button type="button" (click)="finishUploading()" [disabled]="!!imageBusy() || !imageValid()">Finish uploading</button>
-            <button type="button" (click)="cancelUploading()" [disabled]="!!imageBusy()">Cancel</button>
+            <button type="button" (click)="finishUploading()" [disabled]="!!imageBusy() || !imageValid()">{{ 'ADMINPANEL.FINISH_UPLOADING' | transloco }}</button>
+            <button type="button" (click)="cancelUploading()" [disabled]="!!imageBusy()">{{ 'ADMINPANEL.CANCEL' | transloco }}</button>
           </div>
         </div>
       } @else {
-        <button type="button" (click)="loadImage()" [disabled]="!selectedFile() || !imageValid() || !!imageBusy()">Load</button>
+        <button type="button" (click)="loadImage()" [disabled]="!selectedFile() || !imageValid() || !!imageBusy()">{{ 'ADMINPANEL.LOAD' | transloco }}</button>
       }
       @if (imageFailure()) { <p class="error" role="alert">{{ imageFailure() }}</p> }
       @if (imageMessage()) { <p role="status">{{ imageMessage() }}</p> }

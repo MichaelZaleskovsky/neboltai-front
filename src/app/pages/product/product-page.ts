@@ -36,6 +36,20 @@ export class ProductPage {
 
   protected readonly item = computed(() => this.itemResource.value());
 
+  /** Metadata rows to display, derived from the current item. */
+  protected readonly metaRows = computed(() => {
+    const current = this.item();
+    if (!current) return [];
+    return [
+      { key: 'PRODUCT.META.NAME',       value: current.name       },
+      { key: 'PRODUCT.META.AUTHOR',     value: current.author     },
+      { key: 'PRODUCT.META.MEDIA_TYPE', value: current.mediaType  },
+      { key: 'PRODUCT.META.MEDIA',      value: current.media      },
+      { key: 'PRODUCT.META.SIZE',       value: current.size       },
+      { key: 'PRODUCT.META.YEAR',       value: current.year       },
+    ] as const;
+  });
+
   /** Human-readable error message, shown on the page when loading fails. */
   protected readonly errorMessage = computed(() => {
     const err = this.itemResource.error();
