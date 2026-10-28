@@ -5,11 +5,12 @@ import { DestroyRef } from '@angular/core';
 import { Observable, finalize } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ArtworksApi } from '../../services/artworks-api';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-adminpanel-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule],
+  imports: [FormsModule, TranslocoPipe],
   templateUrl: './adminpanel-page.html',
   styleUrl: './adminpanel-page.scss',
 })
