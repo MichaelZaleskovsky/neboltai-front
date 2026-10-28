@@ -62,7 +62,6 @@
         <app-osd-viewer
           [tileSources]="source ?? undefined"
           [cropSource]="crop"
-          [fallbackImageUrl]="current.previewUrl"
           [navigatorElement]="navigatorEl()?.nativeElement ?? null"
           (zoomChange)="onZoomChange($event)"
           (maxZoomChange)="onMaxZoomChange($event)"

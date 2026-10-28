@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 import type OpenSeadragon from 'openseadragon';
 import { CropTileSourceConfig, buildCropTileSource } from './crop-tile-source';
+import { TileLoadDebouncer } from './tile-load-debouncer';
 
 @Component({
   selector: 'app-osd-viewer',
@@ -43,7 +44,6 @@ export class OsdViewer {
    * `tileSources`.
    */
   readonly cropSource = input<CropTileSourceConfig | null>(null);
-  readonly fallbackImageUrl = input<string>();
 
   /** Optional overrides merged into the OpenSeadragon options. */
   readonly options = input<Partial<OpenSeadragon.Options>>({});
@@ -79,10 +79,9 @@ export class OsdViewer {
   private readonly host = viewChild.required<ElementRef<HTMLDivElement>>('host');
 
   private viewer?: OpenSeadragon.Viewer;
+  private tileLoading?: TileLoadDebouncer;
+  private removeWheelListener?: () => void;
   private osd?: typeof OpenSeadragon;
-  private usingFallback = false;
-  private tileFailCount = 0;
-  private static readonly TILE_FAIL_THRESHOLD = 3; // consecutive failures before fallback
   private readonly zone = inject(NgZone);
 
   constructor() {
@@ -125,29 +124,34 @@ export class OsdViewer {
         // Allow zooming in well beyond the image's native pixels so single
         // preview images can still be enlarged (they just get soft past 100%).
         maxZoomPixelRatio: 8,
+        imageLoaderLimit: 2,
+        maxImageCacheCount: 256,
+        loadDestinationTilesOnAnimation: true,
+        tileRetryMax: 2,
+        tileRetryDelay: 1500,
         ...this.options(),
       });
 
-      this.viewer.addHandler('open-failed', (event) => {
-        if (this.usingFallback || !this.openFallback()) {
-          this.zone.run(() =>
-            this.loadError.emit('PRODUCT.IMAGE_LOAD_ERROR'),
-          );
-        }
+      // The navigator otherwise owns a separate loader and can exceed the
+      // viewer's concurrency limit. Share the same queue before images open.
+      if (this.viewer.navigator) {
+        this.viewer.navigator.imageLoader = this.viewer.imageLoader;
+      }
+      this.tileLoading = new TileLoadDebouncer(this.viewer.imageLoader, () => {
+        this.viewer?.forceRedraw();
+        this.viewer?.navigator?.forceRedraw();
       });
+      const pauseLoading = () => this.tileLoading?.pause();
+      const host = this.host().nativeElement;
+      host.addEventListener('wheel', pauseLoading, { capture: true, passive: true });
+      this.removeWheelListener = () => host.removeEventListener('wheel', pauseLoading, true);
+      this.viewer.addHandler('pan', pauseLoading);
 
-      this.viewer.addHandler('tile-load-failed', () => {
-        // Guard: if already falling back, ignore further failures.
-        if (this.usingFallback) return;
-
-        // Only trigger the fallback after several consecutive failures to
-        // avoid falling back on a single transient network hiccup.
-        this.tileFailCount++;
-        if (this.tileFailCount >= OsdViewer.TILE_FAIL_THRESHOLD) {
-          if (!this.openFallback()) {
-            this.zone.run(() => this.loadError.emit('PRODUCT.IMAGE_LOAD_ERROR'));
-          }
-        }
+      // A source-level failure is reported, but never replaces an already
+      // loaded image. Tile failures are handled by OSD's bounded retry queue;
+      // cached lower-resolution tiles remain available for rendering.
+      this.viewer.addHandler('open-failed', () => {
+        this.zone.run(() => this.loadError.emit('PRODUCT.IMAGE_LOAD_ERROR'));
       });
 
       // Once the image is loaded, fit the entire image into view immediately.
@@ -164,6 +168,7 @@ export class OsdViewer {
       // Run inside the Angular zone so the zoom signal change (which OSD fires
       // outside Angular) triggers change detection and updates bound controls.
       this.viewer.addHandler('zoom', () => {
+        this.tileLoading?.pause();
         this.zone.run(() => {
           const vp = this.viewer?.viewport;
           if (vp) {
@@ -185,32 +190,22 @@ export class OsdViewer {
       // Track both inputs so either change re-runs this.
       this.tileSources();
       this.cropSource();
-      this.fallbackImageUrl();
       const source = this.resolveSource();
       if (this.viewer && source != null) {
-        this.usingFallback = false;
-        this.tileFailCount = 0;
+        this.tileLoading?.reset();
         this.viewer.open(source as OpenSeadragon.TileSourceSpecifier);
       }
     });
 
     destroyRef.onDestroy(() => {
+      this.removeWheelListener?.();
+      this.tileLoading?.destroy();
       this.viewer?.destroy();
       this.viewer = undefined;
     });
   }
 
   // Imperative controls the host page can call via a template reference.
-
-  private openFallback(): boolean {
-    const url = this.fallbackImageUrl();
-    if (!this.viewer || !this.cropSource() || !url) return false;
-    // Ignore remaining failed crop requests once the preview is opening.
-    if (this.usingFallback) return true;
-    this.usingFallback = true;
-    this.viewer.open({ type: 'image', url } as unknown as OpenSeadragon.TileSourceSpecifier);
-    return true;
-  }
 
   zoomIn(factor = 1.4): void {
     const vp = this.viewer?.viewport;

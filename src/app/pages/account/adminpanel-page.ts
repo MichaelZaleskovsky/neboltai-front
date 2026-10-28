@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal, viewChild, ElementRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal, viewChild, ElementRef, afterRenderEffect } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { rxResource, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DestroyRef } from '@angular/core';
@@ -15,6 +15,17 @@ import { TranslocoPipe } from '@jsverse/transloco';
   styleUrl: './adminpanel-page.scss',
 })
 export class AdminPanelPage {
+  private readonly busyDialog = viewChild<ElementRef<HTMLDialogElement>>('busyDialog');
+
+  constructor() {
+    afterRenderEffect(() => {
+      const busy = this.imageBusy();
+      const dialog = this.busyDialog()?.nativeElement;
+      if (!dialog) return;
+      if (busy && !dialog.open) dialog.showModal();
+      else if (!busy && dialog.open) dialog.close();
+    });
+  }
   private readonly api = inject(ArtworksApi);
   private readonly destroyRef = inject(DestroyRef);
   protected readonly authors = rxResource({ stream: () => this.api.authors(), defaultValue: [] });
@@ -49,7 +60,7 @@ export class AdminPanelPage {
   protected loadImage(): void {
     const file = this.selectedFile();
     if (!file || !this.imageValid() || this.imageBusy() || this.uploadedImage()) return;
-    this.imageBusy.set('File uploading...');
+    this.imageBusy.set('Your file is uploading. Please be patient, as this may take a while.');
     this.imageFailure.set('');
     this.imageMessage.set('');
     this.api.uploadImage(file).pipe(takeUntilDestroyed(this.destroyRef), finalize(() => this.imageBusy.set(''))).subscribe({

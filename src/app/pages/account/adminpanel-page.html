@@ -76,9 +76,6 @@
       @if (medias.error()) { <p class="error" role="alert">{{ 'ADMINPANEL.LOAD_MEDIA_ERROR' | transloco }}</p><button type="button" (click)="medias.reload()">{{ 'ADMINPANEL.RETRY' | transloco }}</button> }
       <label><span>{{ 'ADMINPANEL.YEAR' | transloco }}</span><input type="number" name="year" [(ngModel)]="imageMetadata.year" [disabled]="!!imageBusy()" step="1" /></label>
       <label><span>{{ 'ADMINPANEL.DESCRIPTION' | transloco }}</span><textarea name="imageDescription" [(ngModel)]="imageMetadata.description" [disabled]="!!imageBusy()" rows="3"></textarea></label>
-      @if (imageBusy()) {
-        <div class="upload-status" role="status"><span class="spinner" aria-hidden="true"></span>{{ imageBusy() }}</div>
-      }
       @if (uploadedImage()) {
         <div class="upload-confirmation">
           <p>{{ 'ADMINPANEL.UPLOAD_SUCCESS' | transloco }}</p>
@@ -95,3 +92,9 @@
     </div>
   </details>
 </div>
+<dialog #busyDialog class="upload-dialog" aria-labelledby="upload-dialog-message" (cancel)="$event.preventDefault()">
+  <div class="upload-status" role="status" aria-live="polite">
+    <span class="spinner" aria-hidden="true"></span>
+    <p id="upload-dialog-message">{{ imageBusy() }}</p>
+  </div>
+</dialog>
