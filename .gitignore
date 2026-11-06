@@ -43,3 +43,9 @@ Thumbs.db
 
 # Stray nested project copy (accidental artifact, not part of the app)
 /neboltai/
+
+# Kiro IDE configuration
+.kiro/
+
+# Dev server log
+ng-serve.log

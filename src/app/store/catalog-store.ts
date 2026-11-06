@@ -76,9 +76,14 @@ export const CatalogStore = signalStore(
               }),
             ),
             catchError((err: unknown) => {
-              const message =
-                err instanceof Error ? err.message : 'Could not load artworks.';
-              patchState(store, { items: [], totalElements: 0, loading: false, error: message });
+              console.error('[CatalogStore] search failed:', err);
+              patchState(store, {
+                items: [],
+                totalElements: 0,
+                loading: false,
+                // Store the i18n key — the template pipes it through transloco.
+                error: 'CATALOG.LOAD_ERROR',
+              });
               return EMPTY;
             }),
           ),

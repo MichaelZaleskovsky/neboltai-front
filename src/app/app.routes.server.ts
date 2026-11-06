@@ -2,6 +2,10 @@ import { RenderMode, ServerRoute } from '@angular/ssr';
 
 export const serverRoutes: ServerRoute[] = [
   {
+    path: 'account/adminpanel',
+    renderMode: RenderMode.Client,
+  },
+  {
     // Data-driven pages fetch from the backend, which is only reachable from the
     // browser (via the dev proxy) — not from the Node SSR server. Render these
     // on the client to avoid server-side fetch attempts.

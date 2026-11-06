@@ -62,7 +62,7 @@
     @if (store.loading()) {
       <p class="status">{{ 'COMMON.LOADING' | transloco }}</p>
     } @else if (store.error()) {
-      <p class="status error">{{ store.error() }}</p>
+      <p class="status error">{{ store.error() | transloco }}</p>
     } @else {
       @for (item of store.items(); track item.id) {
         <app-catalog-item-card [item]="item" />

@@ -8,8 +8,13 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/account/account-page').then((m) => m.AccountPage),
   },
   {
+    path: 'account/adminpanel',
+    loadComponent: () => import('./pages/account/adminpanel-page').then((m) => m.AdminPanelPage),
+  },
+  {
     path: 'account/load-image',
-    loadComponent: () => import('./pages/account/load-image-page').then((m) => m.LoadImagePage),
+    pathMatch: 'full',
+    redirectTo: 'account/adminpanel',
   },
   {
     path: 'about',
