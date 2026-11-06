@@ -7,5 +7,5 @@
  */
 export const environment = {
   production: true,
-  apiBaseUrl: 'http://130.61.19.127:8080',
+  apiBaseUrl: '',
 };
