@@ -18,6 +18,10 @@
 }
 
 .app-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
   padding: 1rem 1.5rem;
   background: #e6b5a5;
   color: #3f2923;
@@ -26,4 +30,48 @@
   p {
     margin: 0;
   }
+}
+
+.info-link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.info-dialog {
+  max-width: calc(100vw - 3rem);
+  margin: auto;
+  padding: 2rem;
+  border: 0;
+  border-radius: 12px;
+  background: #fff;
+  color: #3f2923;
+  text-align: center;
+  box-shadow: 0 12px 40px rgb(0 0 0 / 20%);
+
+  &::backdrop {
+    background: rgb(0 0 0 / 45%);
+  }
+
+  p {
+    margin: 0 0 0.75rem;
+  }
+
+  form {
+    margin-top: 1.5rem;
+  }
+}
+
+.info-ok {
+  padding: 0.5rem 2rem;
+  border: 0;
+  border-radius: 6px;
+  background: #e6b5a5;
+  color: #3f2923;
+  font: inherit;
+  cursor: pointer;
 }

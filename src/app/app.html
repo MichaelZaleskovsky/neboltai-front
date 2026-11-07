@@ -7,6 +7,18 @@
   </main>
 
   <footer class="app-footer">
+    <button class="info-link" type="button" (click)="infoDialog.showModal()">Info</button>
     <p>© {{ year }} {{ 'COMMON.COPYRIGHT' | transloco }}</p>
   </footer>
+
+  <dialog #infoDialog class="info-dialog" aria-label="Info">
+    <div class="info-content" dir="ltr">
+      <p>Backend Version 1.1 from 07.11.2026</p>
+      <p>Frontend Version 1.1 from 07.11.2026</p>
+      <p>Production @MZaleskovskiy</p>
+    </div>
+    <form method="dialog">
+      <button class="info-ok" type="submit" autofocus>ОК</button>
+    </form>
+  </dialog>
 </div>
